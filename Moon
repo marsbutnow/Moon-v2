@@ -22,6 +22,11 @@
 .th-abyss{--bg:#020008;--bg2:#05000f;--s:#09001a;--s2:#0d0022;--a:#9b59ff;--a2:#c899ff;--a3:#ff59cc;--text:#d0c0ff;--dim:#4a2a80;--border:#1a0040;--glow:rgba(155,89,255,.25);}
 .th-coffee{--bg:#100a04;--bg2:#180e06;--s:#221408;--s2:#2c1a0c;--a:#c8813a;--a2:#e8b06a;--a3:#f0d090;--text:#f0e0c8;--dim:#7a5530;--border:#4a2e14;--glow:rgba(200,129,58,.2);}
 .th-white{--bg:#f4f4f8;--bg2:#fff;--s:#fff;--s2:#f0f0f8;--a:#5a4fff;--a2:#7a6fff;--a3:#e63946;--text:#1a1830;--dim:#9090b0;--border:#dde0f0;--glow:rgba(90,79,255,.18);}
+.th-rainbow{--bg:#080810;--bg2:#0d0d1a;--s:#131320;--s2:#181828;--a:#ff4466;--a2:#ff88cc;--a3:#44ffcc;--text:#fff;--dim:#555580;--border:#22223a;--glow:rgba(255,68,102,.25);}
+.th-rainbow .moon-wordmark{background:linear-gradient(135deg,#ff4466,#ff9944,#ffdd44,#44ff88,#44ffdd,#4488ff,#aa44ff)!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important;background-clip:text!important;background-size:200%!important;animation:rbshift 4s linear infinite!important;}
+.th-rainbow .sb-logo{background:linear-gradient(135deg,#ff4466,#44ffcc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.th-rainbow .sb-item.active{border-image:linear-gradient(135deg,#ff4466,#44ffcc) 1;}
+@keyframes rbshift{0%{background-position:0% 50%}100%{background-position:200% 50%}}
 
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;transition:background .35s,color .35s;}
@@ -109,11 +114,13 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 #pg-home{
   align-items:center;justify-content:center;
   background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(124,106,255,.08),transparent 70%),var(--bg);
+  position:relative;overflow:hidden;
 }
-.home-inner{text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;padding:40px 20px;}
+#star-canvas{position:absolute;inset:0;pointer-events:none;z-index:0;}
+.home-inner{text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;padding:40px 20px;position:relative;z-index:1;}
 .moon-wordmark{
-  font-family:'Syne',sans-serif;font-size:clamp(64px,12vw,120px);font-weight:800;
-  letter-spacing:-4px;line-height:1;
+  font-family:'Syne',sans-serif;font-size:clamp(40px,7vw,72px);font-weight:800;
+  letter-spacing:-3px;line-height:1;
   background:linear-gradient(135deg,#d0cce8 0%,#9890cc 40%,#6058aa 80%,#3a3488 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
@@ -408,6 +415,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 
     <!-- HOME -->
     <div class="page active" id="pg-home">
+      <canvas id="star-canvas"></canvas>
       <div class="home-inner">
         <div class="moon-wordmark">Moon</div>
         <div class="home-time" id="home-clock">--:-- --</div>
@@ -471,6 +479,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
                 <div class="th-chip" id="tc-th-abyss" onclick="setTheme('th-abyss',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#020008,#9b59ff)"></div><div class="th-name">Abyss</div></div>
                 <div class="th-chip" id="tc-th-coffee" onclick="setTheme('th-coffee',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#100a04,#c8813a)"></div><div class="th-name">Coffee</div></div>
                 <div class="th-chip" id="tc-th-white" onclick="setTheme('th-white',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#f4f4f8,#5a4fff)"></div><div class="th-name">Light</div></div>
+                <div class="th-chip" id="tc-th-rainbow" onclick="setTheme('th-rainbow',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#ff4466,#ffdd44,#44ffcc,#4488ff,#aa44ff)"></div><div class="th-name">Rainbow</div></div>
               </div>
             </div>
           </div>
@@ -500,19 +509,48 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
               <div><label style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);display:block;margin-bottom:6px;letter-spacing:1px;">TAB TITLE</label>
               <input class="s-inp" id="s-tab-title" type="text" placeholder="Google Classroom" value="Moon"></div>
               <div class="s-btn-row">
-                <button class="s-btn" onclick="setTabPreset('Google Classroom')">Classroom</button>
-                <button class="s-btn" onclick="setTabPreset('Google Docs')">Docs</button>
-                <button class="s-btn" onclick="setTabPreset('Khan Academy')">Khan</button>
-                <button class="s-btn" onclick="setTabPreset('Quizlet')">Quizlet</button>
+                <button class="s-btn" onclick="setTabPreset('Google Classroom','https://ssl.gstatic.com/classroom/favicon.png')">Classroom</button>
+                <button class="s-btn" onclick="setTabPreset('Google Docs','https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico')">Docs</button>
+                <button class="s-btn" onclick="setTabPreset('Khan Academy','https://www.khanacademy.org/favicon.ico')">Khan</button>
+                <button class="s-btn" onclick="setTabPreset('Quizlet','https://quizlet.com/favicon.ico')">Quizlet</button>
               </div>
+              <div><label style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);display:block;margin-bottom:6px;letter-spacing:1px;">TAB FAVICON — QUICK SET</label>
+              <div class="s-btn-row" style="flex-wrap:wrap;">
+                <button class="s-btn fav-btn" onclick="setFavicon('https://ssl.gstatic.com/classroom/favicon.png','Google Classroom')">
+                  <img src="https://ssl.gstatic.com/classroom/favicon.png" style="width:12px;height:12px;vertical-align:middle;margin-right:5px;" onerror="this.style.display='none'">Classroom
+                </button>
+                <button class="s-btn fav-btn" onclick="setFavicon('https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico','Google Docs')">
+                  <img src="https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico" style="width:12px;height:12px;vertical-align:middle;margin-right:5px;" onerror="this.style.display='none'">Docs
+                </button>
+                <button class="s-btn fav-btn" onclick="setFavicon('https://www.vocab.com/favicon.ico','Vocab.com')">
+                  <img src="https://www.vocab.com/favicon.ico" style="width:12px;height:12px;vertical-align:middle;margin-right:5px;" onerror="this.style.display='none'">Vocab.com
+                </button>
+                <button class="s-btn fav-btn" onclick="setFavicon('https://www.aleks.com/favicon.ico','ALEKS')">
+                  <img src="https://www.aleks.com/favicon.ico" style="width:12px;height:12px;vertical-align:middle;margin-right:5px;" onerror="this.style.display='none'">ALEKS
+                </button>
+                <button class="s-btn fav-btn" onclick="setFavicon('https://www.mheducation.com/favicon.ico','McGraw Hill')">
+                  <img src="https://www.mheducation.com/favicon.ico" style="width:12px;height:12px;vertical-align:middle;margin-right:5px;" onerror="this.style.display='none'">McGraw Hill
+                </button>
+                <button class="s-btn fav-btn" onclick="setFavicon('https://www.pendalearning.com/favicon.ico','Penda')">
+                  <img src="https://www.pendalearning.com/favicon.ico" style="width:12px;height:12px;vertical-align:middle;margin-right:5px;" onerror="this.style.display='none'">Penda
+                </button>
+                <button class="s-btn fav-btn" onclick="setFavicon('https://www.google.com/favicon.ico','Google')">
+                  <img src="https://www.google.com/favicon.ico" style="width:12px;height:12px;vertical-align:middle;margin-right:5px;" onerror="this.style.display='none'">Google
+                </button>
+                <button class="s-btn fav-btn" onclick="setFavicon('https://quizlet.com/favicon.ico','Quizlet')">
+                  <img src="https://quizlet.com/favicon.ico" style="width:12px;height:12px;vertical-align:middle;margin-right:5px;" onerror="this.style.display='none'">Quizlet
+                </button>
+              </div></div>
+              <div><label style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);display:block;margin-bottom:6px;letter-spacing:1px;">CUSTOM FAVICON URL</label>
+              <input class="s-inp" id="s-favicon-url" type="text" placeholder="https://example.com/favicon.ico"></div>
               <div><label style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);display:block;margin-bottom:6px;letter-spacing:1px;">GAME LAUNCH STYLE</label>
               <select class="s-sel" id="s-launch-style">
                 <option value="blank">About:blank (default)</option>
                 <option value="tab">New Tab (direct)</option>
-                <option value="inline">Inline iframe overlay</option>
               </select></div>
               <div style="display:flex;gap:8px;">
                 <button class="s-btn primary" onclick="applyTabSettings()">Save</button>
+                <button class="s-btn" onclick="applyCustomFavicon()">Apply Custom Favicon</button>
               </div>
             </div>
           </div>
@@ -781,6 +819,10 @@ function initApp(){
   startClock();
   const t=localStorage.getItem('moon-theme')||'';
   if(t){applyTheme(t);const c=document.getElementById('tc-'+t);if(c){document.querySelectorAll('.th-chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');}}
+  const savedFav=localStorage.getItem('moon-favicon');
+  if(savedFav)applyFavicon(savedFav);
+  const savedTitle=localStorage.getItem('moon-title');
+  if(savedTitle){document.title=savedTitle;document.getElementById('s-tab-title').value=savedTitle;}
 }
 
 // ── CLOCK ──
@@ -962,10 +1004,33 @@ function cloakBlank(){const w=window.open('about:blank','_blank');if(!w){alert('
 function cloakBlob(){const b=new Blob([document.documentElement.outerHTML],{type:'text/html'});const u=URL.createObjectURL(b);const w=window.open(u,'_blank');if(!w){alert('Allow popups!');return;}setTimeout(()=>URL.revokeObjectURL(u),8000);window.location.href='https://classroom.google.com';}
 
 // ── SETTINGS ACTIONS ──
-function setTabPreset(v){document.getElementById('s-tab-title').value=v;}
+function setTabPreset(v,faviconUrl){
+  document.getElementById('s-tab-title').value=v;
+  if(faviconUrl){document.getElementById('s-favicon-url').value=faviconUrl;applyFavicon(faviconUrl);}
+}
+function setFavicon(url,title){
+  applyFavicon(url);
+  if(title)document.getElementById('s-tab-title').value=title;
+  document.getElementById('s-favicon-url').value=url;
+  localStorage.setItem('moon-favicon',url);
+  showToast('Favicon updated');
+}
+function applyFavicon(url){
+  let link=document.querySelector("link[rel~='icon']");
+  if(!link){link=document.createElement('link');link.rel='icon';document.head.appendChild(link);}
+  link.href=url;
+}
+function applyCustomFavicon(){
+  const url=document.getElementById('s-favicon-url').value.trim();
+  if(url){applyFavicon(url);showToast('Custom favicon applied');}
+}
 function applyTabSettings(){
   const t=document.getElementById('s-tab-title').value.trim()||'Google Classroom';
-  document.title=t;showToast('Settings saved');
+  const fav=document.getElementById('s-favicon-url').value.trim();
+  document.title=t;
+  localStorage.setItem('moon-title',t);
+  if(fav){applyFavicon(fav);localStorage.setItem('moon-favicon',fav);}
+  showToast('Settings saved');
 }
 function setAnimScale(v){
   document.getElementById('anim-val').textContent=parseFloat(v).toFixed(1)+'x';
