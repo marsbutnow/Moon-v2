@@ -1284,6 +1284,448 @@ function showToast(msg){
   setTimeout(()=>t.classList.remove('show'),2400);
 }
 
+// ── ANNOUNCEMENT BANNER ──
+let annTimer=null, annPollTimer=null, annTimerBar=null, annDismissed=false;
+
+// Extract the doc ID from either a full Google Docs URL or a raw ID string
+function parseDocId(input){
+  if(!input)return '';
+  input=input.trim();
+  // Match full URL: docs.google.com/document/d/ID/...
+  const m=input.match(/\/document\/d\/([a-zA-Z0-9_-]{20,})/);
+  if(m)return m[1];
+  // Already an ID (long alphanumeric string, no slashes)
+  if(/^[a-zA-Z0-9_-]{20,}$/.test(input))return input;
+  return input; // pass through as-is and let fetch fail naturally
+}
+
+function getDocId(){
+  const raw=document.getElementById('s-doc-id')?.value||localStorage.getItem('moon-doc-id')||'';
+  return parseDocId(raw);
+}
+function getBannerDur(){return parseInt(document.getElementById('s-banner-dur')?.value||localStorage.getItem('moon-banner-dur')||'30000');}
+function getPollInterval(){return parseInt(document.getElementById('s-poll-interval')?.value||localStorage.getItem('moon-poll-interval')||'60000');}
+
+function extractDocText(html){
+  // The /pub page wraps content in <div id="contents"> with <p> tags
+  // We need to strip Google's script-heavy preamble and grab only readable text
+  const tmp=document.createElement('div');
+  tmp.innerHTML=html;
+  // Remove all scripts, styles, head, nav, header, footer
+  tmp.querySelectorAll('script,style,noscript,head,nav,header,footer,form,button').forEach(e=>e.remove());
+
+  // Best case: Google pub pages have a #contents or .doc-content div
+  const content=tmp.querySelector('#contents,.doc-content,[role="main"],article')||
+                 tmp.querySelector('body')||tmp;
+
+  // Collect only visible text paragraphs, skip anything that looks like code/config
+  const lines=[];
+  content.querySelectorAll('p,h1,h2,h3,h4,h5,li,span').forEach(el=>{
+    // Skip if inside a script-like block
+    if(el.closest('script,style,noscript'))return;
+    const t=el.textContent.replace(/\s+/g,' ').trim();
+    // Skip short fragments, Google config strings, and anything that looks like JS
+    if(!t||t.length<2)return;
+    if(t.includes('window[')&&t.includes('Config'))return;
+    if(t.includes('function(')&&t.includes('{'))return;
+    if(t.startsWith('{')&&t.includes(':'))return;
+    if(/^[a-zA-Z0-9+/=]{40,}$/.test(t))return; // base64-like
+    if(t.split(' ').length<2&&t.length>30)return; // long single word = likely garbage
+    // Deduplicate consecutive identical lines
+    if(lines.length&&lines[lines.length-1]===t)return;
+    lines.push(t);
+  });
+
+  // Remove duplicate fragments (gdoc pub repeats text in different elements)
+  const seen=new Set();
+  const unique=lines.filter(l=>{
+    const k=l.toLowerCase().slice(0,40);
+    if(seen.has(k))return false;
+    seen.add(k);return true;
+  });
+
+  const result=unique.join(' · ').trim();
+  // Final sanity: if result still looks like JS garbage, return empty
+  if(result.includes('window[')&&result.includes(']')&&result.length>200)return '';
+  return result.slice(0,600);
+}
+
+async function fetchDocContent(docId){
+  if(!docId)return null;
+
+  // Strategy: /pub gives proper published HTML — best for text extraction
+  // export?format=txt would be ideal but Google redirects it to an auth page through proxies
+  const pubUrl=`https://docs.google.com/document/d/${docId}/pub`;
+
+  const prev=document.getElementById('ann-preview-text');
+
+  const proxies=[
+    // corsproxy.io — passes raw response, very reliable
+    {
+      name:'corsproxy.io',
+      fetch:async(u)=>{
+        const r=await fetch(`https://corsproxy.io/?${encodeURIComponent(u)}`,{cache:'no-store'});
+        if(!r.ok)throw r.status;
+        return r.text();
+      }
+    },
+    // allorigins — JSON wrapper
+    {
+      name:'allorigins.win',
+      fetch:async(u)=>{
+        const r=await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(u)}`,{cache:'no-store'});
+        if(!r.ok)throw r.status;
+        const j=await r.json();
+        return j.contents||'';
+      }
+    },
+    // htmldriven thingproxy
+    {
+      name:'thingproxy',
+      fetch:async(u)=>{
+        const r=await fetch(`https://thingproxy.freeboard.io/fetch/${u}`,{cache:'no-store'});
+        if(!r.ok)throw r.status;
+        return r.text();
+      }
+    },
+    // cors.sh (needs origin header)
+    {
+      name:'corsproxy.io (alt)',
+      fetch:async(u)=>{
+        const r=await fetch(`https://corsproxy.io/?url=${encodeURIComponent(u)}`,{cache:'no-store'});
+        if(!r.ok)throw r.status;
+        return r.text();
+      }
+    },
+  ];
+
+  for(const proxy of proxies){
+    try{
+      if(prev)prev.textContent=`Trying ${proxy.name}...`;
+      const html=await proxy.fetch(pubUrl);
+      if(!html||html.length<100)continue;
+
+      // If proxy returned an error page or redirect
+      if(html.includes('accounts.google.com'))continue; // auth wall
+      if(html.includes('Sign in')&&html.length<2000)continue; // sign-in page
+
+      const text=extractDocText(html);
+      if(text&&text.length>3&&!text.startsWith('window'))return text;
+    }catch(e){
+      // try next proxy
+    }
+  }
+  return null;
+}
+
+let lastAnnText='';
+
+function showBanner(text){
+  const banner=document.getElementById('ann-banner');
+  const msg=document.getElementById('ann-msg');
+  const bar=document.getElementById('ann-timer-bar');
+  const status=document.getElementById('ann-status');
+  if(!banner||!msg)return;
+  // Clear any running timer
+  if(annTimer)clearTimeout(annTimer);
+  if(annTimerBar)clearInterval(annTimerBar);
+  // Set message — sanitize but keep basic formatting
+  msg.textContent=text;
+  banner.classList.remove('hiding');
+  banner.classList.add('show');
+  // Update status line
+  const now=new Date();
+  status.textContent='Last updated: '+now.toLocaleTimeString();
+  // Push app down to make room for banner
+  const appEl=document.getElementById('app');
+  const pwEl=document.getElementById('pwscreen');
+  const bannerH=banner.offsetHeight||60;
+  appEl.style.marginTop=bannerH+'px';
+  pwEl.style.paddingTop=bannerH+'px';
+  const dur=getBannerDur();
+  if(dur>0){
+    // Animate the timer bar
+    bar.style.transition='none';
+    bar.style.width='100%';
+    // Start countdown animation
+    requestAnimationFrame(()=>{
+      requestAnimationFrame(()=>{
+        bar.style.transition=`width ${dur}ms linear`;
+        bar.style.width='0%';
+      });
+    });
+    annTimer=setTimeout(()=>closeBanner(),dur);
+  } else {
+    bar.style.width='0%';
+    bar.style.transition='none';
+  }
+}
+
+function closeBanner(){
+  const banner=document.getElementById('ann-banner');
+  if(!banner||!banner.classList.contains('show'))return;
+  if(annTimer){clearTimeout(annTimer);annTimer=null;}
+  if(annTimerBar){clearInterval(annTimerBar);annTimerBar=null;}
+  banner.classList.add('hiding');
+  setTimeout(()=>{
+    banner.classList.remove('show','hiding');
+    document.getElementById('app').style.marginTop='';
+    document.getElementById('pwscreen').style.paddingTop='';
+  },380);
+  annDismissed=true;
+}
+
+function getScriptUrl(){return(document.getElementById('s-script-url')?.value||localStorage.getItem('moon-script-url')||'').trim();}
+
+async function fetchAndShowBanner(){
+  const prev=document.getElementById('ann-preview-text');
+  const scriptUrl=getScriptUrl();
+  const raw=document.getElementById('s-doc-id')?.value||localStorage.getItem('moon-doc-id')||'';
+  const docId=parseDocId(raw.trim());
+
+  if(!scriptUrl&&!raw.trim()){
+    showToast('Add an Apps Script URL or Doc ID in Settings first');
+    goPage('settings');
+    return;
+  }
+
+  if(prev)prev.textContent='Connecting...';
+  let text=null;
+
+  // Apps Script URL is the preferred path — direct fetch, no proxy needed
+  if(scriptUrl){
+    try{
+      if(prev)prev.textContent='Fetching from Apps Script...';
+      const r=await fetch(scriptUrl,{cache:'no-store',redirect:'follow'});
+      if(r.ok){
+        const t=(await r.text()).trim();
+        if(t&&t.length>0&&!t.startsWith('<'))text=t.slice(0,600);
+      }
+    }catch(e){}
+  }
+
+  // Fall back to proxy-based doc fetch if no script URL or it failed
+  if(!text&&docId){
+    if(prev)prev.textContent='Trying CORS proxies for doc...';
+    text=await fetchDocContent(docId);
+  }
+
+  if(!text){
+    if(prev)prev.innerHTML='⚠ Could not load. Check:<br>• Apps Script: deployed as "Anyone" web app?<br>• Doc: File → Share → Publish to web → Published?<br>• Is the ID/URL correct?';
+    showToast('Could not load announcement');
+    return;
+  }
+
+  if(prev)prev.textContent='✓ Connected: "'+text.slice(0,80)+(text.length>80?'...':'')+'"';
+  if(text!==lastAnnText||!annDismissed){
+    lastAnnText=text;
+    annDismissed=false;
+    showBanner(text);
+  }
+}
+
+function saveAnnouncementSettings(){
+  const scriptUrl=document.getElementById('s-script-url')?.value.trim()||'';
+  const raw=document.getElementById('s-doc-id')?.value.trim()||'';
+  const docId=parseDocId(raw);
+  const dur=document.getElementById('s-banner-dur').value;
+  const poll=document.getElementById('s-poll-interval').value;
+  const prev=document.getElementById('ann-preview-text');
+
+  if(!scriptUrl&&!raw){showToast('Enter an Apps Script URL or Doc ID');return;}
+  if(!scriptUrl&&raw&&!docId){
+    if(prev)prev.textContent='⚠ Could not find a Doc ID in that URL.';
+    return;
+  }
+  if(scriptUrl)localStorage.setItem('moon-script-url',scriptUrl);
+  if(raw)localStorage.setItem('moon-doc-id',raw);
+  localStorage.setItem('moon-banner-dur',dur);
+  localStorage.setItem('moon-poll-interval',poll);
+  localStorage.setItem('moon-ann-auto',document.getElementById('tog-ann-auto').checked?'1':'0');
+  if(prev)prev.textContent='Saved — testing connection...';
+  showToast('Saved — connecting...');
+  startAnnPoll();
+  fetchAndShowBanner();
+}
+
+function startAnnPoll(){
+  if(annPollTimer)clearInterval(annPollTimer);
+  const interval=getPollInterval();
+  annPollTimer=setInterval(async()=>{
+    const scriptUrl=localStorage.getItem('moon-script-url')||'';
+    const raw=localStorage.getItem('moon-doc-id')||'';
+    const docId=parseDocId(raw);
+    if(!scriptUrl&&!docId)return;
+    let text=null;
+    if(scriptUrl){
+      try{
+        const r=await fetch(scriptUrl,{cache:'no-store',redirect:'follow'});
+        if(r.ok){const t=(await r.text()).trim();if(t&&!t.startsWith('<'))text=t.slice(0,600);}
+      }catch(e){}
+    }
+    if(!text&&docId)text=await fetchDocContent(docId);
+    if(text&&text!==lastAnnText){
+      lastAnnText=text;
+      annDismissed=false;
+      showBanner(text);
+      const prev=document.getElementById('ann-preview-text');
+      if(prev)prev.textContent='✓ Updated: "'+text.slice(0,80)+(text.length>80?'...':'')+'"';
+    }
+  },interval);
+}
+
+function initAnnouncement(){
+  const savedScript=localStorage.getItem('moon-script-url')||'';
+  const savedRaw=localStorage.getItem('moon-doc-id')||'';
+  const savedDur=localStorage.getItem('moon-banner-dur')||'30000';
+  const savedPoll=localStorage.getItem('moon-poll-interval')||'60000';
+  const savedAuto=localStorage.getItem('moon-ann-auto');
+  const elScript=document.getElementById('s-script-url');
+  const elId=document.getElementById('s-doc-id');
+  const elDur=document.getElementById('s-banner-dur');
+  const elPoll=document.getElementById('s-poll-interval');
+  const elAuto=document.getElementById('tog-ann-auto');
+  if(elScript&&savedScript)elScript.value=savedScript;
+  if(elId&&savedRaw)elId.value=savedRaw;
+  if(elDur&&savedDur)elDur.value=savedDur;
+  if(elPoll&&savedPoll)elPoll.value=savedPoll;
+  if(elAuto&&savedAuto!==null)elAuto.checked=savedAuto!=='0';
+  if(savedScript||parseDocId(savedRaw)){
+    startAnnPoll();
+    const autoOn=savedAuto!=='0';
+    if(autoOn)setTimeout(()=>fetchAndShowBanner(),1200);
+  }
+}
+
+// ── STAR CANVAS ──
+(function(){
+  const canvas=document.getElementById('star-canvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  let W,H,stars=[],particles=[];
+  const STAR_COUNT=90;
+
+  function resize(){
+    W=canvas.width=canvas.offsetWidth;
+    H=canvas.height=canvas.offsetHeight;
+  }
+
+  function randBetween(a,b){return a+(Math.random()*(b-a));}
+
+  function makeStars(){
+    stars=[];
+    for(let i=0;i<STAR_COUNT;i++){
+      stars.push({
+        x:Math.random()*W, y:Math.random()*H,
+        r:randBetween(.5,2.2),
+        baseR:randBetween(.5,2.2),
+        glow:randBetween(.3,.9),
+        glowDir:Math.random()<.5?1:-1,
+        glowSpeed:randBetween(.003,.012),
+        explodeTimer:Math.floor(randBetween(120,800)),
+        color:randColor(),
+        alpha:randBetween(.4,1),
+      });
+    }
+  }
+
+  function randColor(){
+    const palettes=[
+      ['#ffffff','#e8e0ff','#c0b8ff'],
+      ['#ff88cc','#ff4488','#ffaadd'],
+      ['#88ccff','#44aaff','#aaddff'],
+      ['#88ffdd','#44ffcc','#aaffee'],
+      ['#ffdd88','#ffcc44','#ffeeaa'],
+    ];
+    const p=palettes[Math.floor(Math.random()*palettes.length)];
+    return p[Math.floor(Math.random()*p.length)];
+  }
+
+  function explodeStar(s){
+    const count=Math.floor(randBetween(6,14));
+    for(let i=0;i<count;i++){
+      const angle=(Math.PI*2/count)*i+Math.random()*.4;
+      const speed=randBetween(1.2,3.8);
+      particles.push({
+        x:s.x, y:s.y,
+        vx:Math.cos(angle)*speed,
+        vy:Math.sin(angle)*speed,
+        r:randBetween(.5,1.8),
+        alpha:1,
+        fade:randBetween(.018,.035),
+        color:s.color,
+      });
+    }
+    // reset star to new position
+    s.x=Math.random()*W;
+    s.y=Math.random()*H;
+    s.explodeTimer=Math.floor(randBetween(180,900));
+    s.color=randColor();
+    s.alpha=0;
+  }
+
+  function drawStar(s){
+    ctx.save();
+    ctx.globalAlpha=s.alpha;
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=s.color;
+    ctx.shadowColor=s.color;
+    ctx.shadowBlur=s.r*5*s.glow;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+
+    stars.forEach(s=>{
+      // pulse glow
+      s.glow+=s.glowSpeed*s.glowDir;
+      if(s.glow>1){s.glow=1;s.glowDir=-1;}
+      if(s.glow<.2){s.glow=.2;s.glowDir=1;}
+      // fade in after explode
+      if(s.alpha<1)s.alpha=Math.min(1,s.alpha+.008);
+      // countdown to explode
+      s.explodeTimer--;
+      if(s.explodeTimer<=0){explodeStar(s);}
+      drawStar(s);
+    });
+
+    // particles
+    particles=particles.filter(p=>{
+      p.x+=p.vx; p.y+=p.vy;
+      p.vx*=.94; p.vy*=.94;
+      p.alpha-=p.fade;
+      if(p.alpha<=0)return false;
+      ctx.save();
+      ctx.globalAlpha=p.alpha;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.color;
+      ctx.shadowColor=p.color;
+      ctx.shadowBlur=p.r*4;
+      ctx.fill();
+      ctx.restore();
+      return true;
+    });
+
+    requestAnimationFrame(tick);
+  }
+
+  function init(){
+    resize();makeStars();tick();
+  }
+
+  // Only run when home page is visible
+  const pg=document.getElementById('pg-home');
+  if(pg){
+    const obs=new ResizeObserver(()=>{resize();if(!stars.length)makeStars();});
+    obs.observe(pg);
+    init();
+  }
+  window.addEventListener('resize',()=>{resize();});
+})();
 </script>
 </body>
 </html>
