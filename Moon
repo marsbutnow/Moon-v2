@@ -28,6 +28,26 @@
 .th-rainbow .sb-item.active{border-image:linear-gradient(135deg,#ff4466,#44ffcc) 1;}
 @keyframes rbshift{0%{background-position:0% 50%}100%{background-position:200% 50%}}
 
+/* AMOLED */
+.th-amoled{--bg:#000000;--bg2:#000000;--s:#0a0a0a;--s2:#111111;--a:#ffffff;--a2:#cccccc;--a3:#888888;--text:#ffffff;--dim:#444444;--border:#1a1a1a;--glow:rgba(255,255,255,.1);}
+.th-amoled body::before{display:none;}
+.th-amoled .moon-wordmark{background:linear-gradient(135deg,#ffffff,#aaaaaa)!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important;background-clip:text!important;}
+.th-amoled #sidebar{border-right-color:#1a1a1a;}
+.th-amoled .gcard:hover{box-shadow:0 8px 24px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.2);}
+
+/* Active RGB */
+.th-rgb{--bg:#080808;--bg2:#0d0d0d;--s:#131313;--s2:#181818;--a:#ff0055;--a2:#00ffcc;--a3:#aa00ff;--text:#ffffff;--dim:#555555;--border:#222222;--glow:rgba(0,255,204,.2);}
+.th-rgb body{animation:rgbBg 6s linear infinite;}
+@keyframes rgbBg{0%{background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(255,0,85,.08),transparent),#080808;}17%{background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(255,170,0,.08),transparent),#080808;}33%{background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(0,255,100,.08),transparent),#080808;}50%{background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(0,200,255,.08),transparent),#080808;}67%{background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(100,0,255,.08),transparent),#080808;}83%{background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(255,0,200,.08),transparent),#080808;}100%{background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(255,0,85,.08),transparent),#080808;}}
+.th-rgb .moon-wordmark{background:linear-gradient(135deg,#ff0055,#ff8800,#ffff00,#00ff88,#00ccff,#8800ff,#ff0055)!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important;background-clip:text!important;background-size:300%!important;animation:rgbText 3s linear infinite!important;}
+@keyframes rgbText{0%{background-position:0%}100%{background-position:300%}}
+.th-rgb #sidebar{border-right-width:2px;animation:rgbBorder 3s linear infinite;}
+@keyframes rgbBorder{0%{border-right-color:#ff0055}17%{border-right-color:#ff8800}33%{border-right-color:#00ff88}50%{border-right-color:#00ccff}67%{border-right-color:#8800ff}83%{border-right-color:#ff00cc}100%{border-right-color:#ff0055}}
+.th-rgb .sb-item.active{animation:rgbItem 3s linear infinite;border-color:currentColor;}
+@keyframes rgbItem{0%{color:#ff0055}17%{color:#ff8800}33%{color:#00ff88}50%{color:#00ccff}67%{color:#8800ff}83%{color:#ff00cc}100%{color:#ff0055}}
+.th-rgb .gcard:hover{animation:rgbCard 3s linear infinite;box-shadow:0 8px 28px rgba(0,0,0,.5);}
+@keyframes rgbCard{0%{border-color:#ff0055;box-shadow:0 8px 28px rgba(0,0,0,.5),0 0 18px rgba(255,0,85,.3)}17%{border-color:#ff8800;box-shadow:0 8px 28px rgba(0,0,0,.5),0 0 18px rgba(255,136,0,.3)}33%{border-color:#00ff88;box-shadow:0 8px 28px rgba(0,0,0,.5),0 0 18px rgba(0,255,136,.3)}50%{border-color:#00ccff;box-shadow:0 8px 28px rgba(0,0,0,.5),0 0 18px rgba(0,204,255,.3)}67%{border-color:#8800ff;box-shadow:0 8px 28px rgba(0,0,0,.5),0 0 18px rgba(136,0,255,.3)}83%{border-color:#ff00cc;box-shadow:0 8px 28px rgba(0,0,0,.5),0 0 18px rgba(255,0,204,.3)}100%{border-color:#ff0055;box-shadow:0 8px 28px rgba(0,0,0,.5),0 0 18px rgba(255,0,85,.3)}}
+
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;transition:background .35s,color .35s;}
 
@@ -323,8 +343,62 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 .pw-err{font-family:'JetBrains Mono',monospace;font-size:11px;color:#e63946;letter-spacing:1px;min-height:16px;text-align:center;}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 
-/* ── MISC ── */
-.section-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--a);margin-bottom:10px;display:flex;align-items:center;gap:10px;}
+/* ── ANNOUNCEMENT BANNER ── */
+#ann-banner{
+  position:fixed;top:0;left:0;right:0;z-index:99998;
+  background:linear-gradient(135deg,var(--s2),var(--s));
+  border-bottom:2px solid var(--a);
+  box-shadow:0 4px 24px rgba(0,0,0,.5),0 0 0 1px rgba(0,0,0,.2),0 2px 0 var(--a);
+  padding:12px 48px 12px 20px;
+  display:none;
+  animation:bannerIn .4s cubic-bezier(.22,1,.36,1);
+  backdrop-filter:blur(16px);
+}
+#ann-banner.show{display:block;}
+#ann-banner.hiding{animation:bannerOut .35s ease forwards;}
+@keyframes bannerIn{from{transform:translateY(-100%);opacity:0;}to{transform:translateY(0);opacity:1;}}
+@keyframes bannerOut{from{transform:translateY(0);opacity:1;}to{transform:translateY(-100%);opacity:0;}}
+#ann-inner{display:flex;align-items:flex-start;gap:12px;}
+#ann-dot{
+  width:8px;height:8px;border-radius:50%;background:var(--a);
+  flex-shrink:0;margin-top:4px;
+  box-shadow:0 0 8px var(--a),0 0 16px var(--glow);
+  animation:dotPulse 1.8s ease-in-out infinite;
+}
+@keyframes dotPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.7);}}
+#ann-label{
+  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;
+  color:var(--a);text-transform:uppercase;flex-shrink:0;margin-top:2px;
+  background:rgba(124,106,255,.12);padding:2px 7px;border-radius:4px;border:1px solid rgba(124,106,255,.25);
+}
+#ann-text{
+  font-family:'Inter',sans-serif;font-size:13px;font-weight:500;
+  color:var(--text);line-height:1.5;flex:1;
+  /* strip heavy gdoc formatting */
+}
+#ann-text p{margin:0;display:inline;}
+#ann-text b,#ann-text strong{color:var(--a2);}
+#ann-text i,#ann-text em{color:var(--dim);font-style:italic;}
+#ann-timer{
+  height:2px;background:var(--border);margin-top:8px;border-radius:1px;overflow:hidden;
+}
+#ann-timer-bar{
+  height:100%;background:linear-gradient(90deg,var(--a),var(--a2));
+  width:100%;transform-origin:left;
+  transition:none;
+}
+#ann-close{
+  position:absolute;top:10px;right:12px;
+  background:none;border:none;cursor:pointer;
+  color:var(--dim);font-size:16px;line-height:1;
+  transition:color .15s,transform .15s;padding:4px;border-radius:4px;
+}
+#ann-close:hover{color:var(--text);transform:scale(1.2);}
+#ann-status{
+  font-family:'JetBrains Mono',monospace;font-size:9px;
+  color:var(--dim);margin-top:4px;letter-spacing:1px;
+}
+font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--a);margin-bottom:10px;display:flex;align-items:center;gap:10px;}
 .section-lbl::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--a),transparent);opacity:.3;}
 </style>
 </head>
@@ -434,6 +508,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
           <div class="home-chip" onclick="quickFilter('emulated')">Emulated</div>
           <div class="home-chip" onclick="quickFilter('fnf')">FNF</div>
           <div class="home-chip" onclick="quickFilter('cdn')">CDN</div>
+          <div class="home-chip" onclick="quickFilter('gnmath')">GN Math</div>
         </div>
       </div>
     </div>
@@ -451,6 +526,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
               <button class="fb" id="fb-emulated" onclick="setFilter('emulated',this)">Emulated</button>
               <button class="fb" id="fb-fnf" onclick="setFilter('fnf',this)">FNF</button>
               <button class="fb" id="fb-cdn" onclick="setFilter('cdn',this)">CDN</button>
+              <button class="fb" id="fb-gnmath" onclick="setFilter('gnmath',this)">GN Math</button>
             </div>
           </div>
           <div id="nores" class="nores">No games found</div>
@@ -480,6 +556,8 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
                 <div class="th-chip" id="tc-th-coffee" onclick="setTheme('th-coffee',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#100a04,#c8813a)"></div><div class="th-name">Coffee</div></div>
                 <div class="th-chip" id="tc-th-white" onclick="setTheme('th-white',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#f4f4f8,#5a4fff)"></div><div class="th-name">Light</div></div>
                 <div class="th-chip" id="tc-th-rainbow" onclick="setTheme('th-rainbow',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#ff4466,#ffdd44,#44ffcc,#4488ff,#aa44ff)"></div><div class="th-name">Rainbow</div></div>
+                <div class="th-chip" id="tc-th-amoled" onclick="setTheme('th-amoled',this)"><div class="th-swatch" style="background:#000;border:1px solid #333"></div><div class="th-name">AMOLED</div></div>
+                <div class="th-chip" id="tc-th-rgb" onclick="setTheme('th-rgb',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#ff0055,#ff8800,#00ff88,#00ccff,#8800ff,#ff00cc)"></div><div class="th-name">RGB</div></div>
               </div>
             </div>
           </div>
@@ -498,6 +576,73 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
               <div class="s-row">
                 <div><div class="s-row-lbl">Page Transitions</div><div class="s-row-sub">Fade between pages</div></div>
                 <label class="tog"><input type="checkbox" id="tog-transitions" checked onchange="toggleTransitions(this.checked)"><div class="tog-track"></div><div class="tog-thumb"></div></label>
+              </div>
+            </div>
+          </div>
+
+          <!-- ANNOUNCEMENT -->
+          <div class="s-card">
+            <div class="s-card-hdr"><h3>Announcement Banner</h3><p>Live text from a Google Doc or Apps Script shown site-wide</p></div>
+            <div class="s-card-body">
+
+              <!-- OPTION A: Apps Script (recommended) -->
+              <div style="background:var(--bg2);border:1px solid var(--a);border-radius:10px;padding:12px 14px;">
+                <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--a2);margin-bottom:2px;">Option A — Apps Script Relay <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--a3);font-weight:400;margin-left:6px;">✓ Most reliable</span></div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);line-height:1.9;margin-bottom:8px;">
+                  1. Open <b style="color:var(--a);">script.google.com</b> → <b style="color:var(--a);">New project</b><br>
+                  2. Delete everything, paste this (click to copy):
+                </div>
+                <div onclick="navigator.clipboard.writeText(this.dataset.code).then(()=>{this.style.borderColor='var(--a3)';showToast('Code copied!');setTimeout(()=>this.style.borderColor='',1200);})"
+                  data-code="function doGet(){var id='YOUR_DOC_ID';var doc=DocumentApp.openById(id);var text=doc.getBody().getText().trim();return ContentService.createTextOutput(text).setMimeType(ContentService.MimeType.TEXT);}"
+                  style="background:var(--bg);padding:8px 10px;border-radius:6px;border:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--a2);cursor:pointer;line-height:1.7;word-break:break-all;transition:border-color .2s;">
+                  function doGet(){var id='<b style="color:var(--a);">YOUR_DOC_ID</b>';var doc=DocumentApp.openById(id);var text=doc.getBody().getText().trim();return ContentService.createTextOutput(text).setMimeType(ContentService.MimeType.TEXT);}
+                  <span style="color:var(--dim);display:block;margin-top:4px;">↑ click to copy</span>
+                </div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);line-height:1.9;margin:8px 0;">
+                  3. Replace <b style="color:var(--a);">YOUR_DOC_ID</b> with your doc's ID<br>
+                  4. <b style="color:var(--a);">Deploy → New deployment → Web app</b><br>
+                  &nbsp;&nbsp;&nbsp;Execute as: <b style="color:var(--a2);">Me</b> &nbsp;|&nbsp; Who has access: <b style="color:var(--a2);">Anyone</b><br>
+                  5. Copy the deployment URL and paste below:
+                </div>
+                <input class="s-inp" id="s-script-url" type="text" placeholder="https://script.google.com/macros/s/.../exec">
+              </div>
+
+              <!-- OPTION B: Direct Doc ID -->
+              <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;">
+                <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">Option B — Google Doc ID <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);font-weight:400;margin-left:6px;">via CORS proxy</span></div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);line-height:1.7;margin-bottom:6px;">
+                  Paste your full doc URL or just the ID. The doc must be <b style="color:var(--a);">File → Share → Publish to web → Published</b>.
+                </div>
+                <input class="s-inp" id="s-doc-id" type="text" placeholder="https://docs.google.com/document/d/YOUR_ID/edit">
+              </div>
+
+              <div class="s-row">
+                <div><div class="s-row-lbl">Auto-check interval</div><div class="s-row-sub">How often to poll for updates</div></div>
+                <select class="s-sel" id="s-poll-interval">
+                  <option value="30000">Every 30s</option>
+                  <option value="60000" selected>Every 1min</option>
+                  <option value="120000">Every 2min</option>
+                  <option value="300000">Every 5min</option>
+                </select>
+              </div>
+              <div class="s-row">
+                <div><div class="s-row-lbl">Banner duration</div><div class="s-row-sub">How long banner stays visible</div></div>
+                <select class="s-sel" id="s-banner-dur">
+                  <option value="15000">15 seconds</option>
+                  <option value="30000" selected>30 seconds</option>
+                  <option value="60000">60 seconds</option>
+                  <option value="0">Until dismissed</option>
+                </select>
+              </div>
+              <div class="s-row">
+                <div><div class="s-row-lbl">Show on login</div><div class="s-row-sub">Auto-show banner when site loads</div></div>
+                <label class="tog"><input type="checkbox" id="tog-ann-auto" checked><div class="tog-track"></div><div class="tog-thumb"></div></label>
+              </div>
+              <div id="ann-preview-text" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);min-height:14px;letter-spacing:.5px;word-break:break-word;line-height:1.6;padding:6px 0;"></div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <button class="s-btn primary" onclick="saveAnnouncementSettings()">Save & Connect</button>
+                <button class="s-btn" onclick="fetchAndShowBanner()">Test Banner Now</button>
+                <button class="s-btn" onclick="closeBanner()">Hide Banner</button>
               </div>
             </div>
           </div>
@@ -659,6 +804,18 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 
 <div id="toast"></div>
 
+<!-- ANNOUNCEMENT BANNER -->
+<div id="ann-banner">
+  <div id="ann-inner">
+    <div id="ann-dot"></div>
+    <div id="ann-label">Announcement</div>
+    <div id="ann-text"><span id="ann-msg">Loading...</span></div>
+  </div>
+  <div id="ann-status"></div>
+  <div id="ann-timer"><div id="ann-timer-bar"></div></div>
+  <button id="ann-close" onclick="closeBanner()" title="Dismiss">✕</button>
+</div>
+
 <script>
 // ── PASSWORD ──
 const PW = '1234';
@@ -671,7 +828,8 @@ function checkPW(){
 document.getElementById('pwinp').addEventListener('keydown',e=>{if(e.key==='Enter')checkPW();});
 
 // ── GAME DATA ──
-const TL={html5:'HTML5',flash:'Flash',emulated:'Emulated',fnf:'FNF',cdn:'CDN'};
+const TL={html5:'HTML5',flash:'Flash',emulated:'Emulated',fnf:'FNF',cdn:'CDN',gnmath:'GN Math'};
+const GNMATH='https://cdn.jsdelivr.net/gh/gn-math/html@main/';
 const EMOJI={html5:'🖥',flash:'⚡',emulated:'🕹',fnf:'🎵',cdn:'🌐'};
 const GAMES=[
   {n:"Baldi's Basics",u:"https://drive.google.com/file/d/1UeCBcErh14gonxfw0y2amxbrqZfrttKj/view",t:"html5",e:"🏫"},
@@ -805,9 +963,39 @@ const GAMES=[
   {n:"Final Fantasy VII",u:"https://drive.google.com/file/d/13wJl_6BtOljdKG0pbyUWAh-DOAWWtCTm/view",t:"emulated",e:"⚔"},
   {n:"Mario Kart DS",u:"https://drive.google.com/file/d/1s7m935WOWN1EM6EB8buUid7bbZxKsPa_/view",t:"emulated",e:"🏎"},
   {n:"New Super Mario Bros DS",u:"https://drive.google.com/file/d/1uyQvi1CGGe9I_WPAfu16hjBvF-1e5I4M/view",t:"emulated",e:"🍄"},
+  // GN MATH — CDN single-file games from cdn.jsdelivr.net/gh/gn-math/html@main/
+  {n:"Bowmasters",u:GNMATH+"0.html",t:"gnmath",e:"🏹"},
+  {n:"OvO",u:GNMATH+"1-fde.html",t:"gnmath",e:"🥚"},
+  {n:"OvO 2",u:GNMATH+"2e.html",t:"gnmath",e:"🥚"},
+  {n:"OvO 3 Dimensions",u:GNMATH+"3.html",t:"gnmath",e:"🥚"},
+  {n:"Gladihoppers",u:GNMATH+"4.html",t:"gnmath",e:"⚔"},
+  {n:"Ice Dodo",u:GNMATH+"5.html",t:"gnmath",e:"🐦"},
+  {n:"Jetpack Joyride",u:GNMATH+"7.html",t:"gnmath",e:"🚀"},
+  {n:"Temple Run 2",u:GNMATH+"10.html",t:"gnmath",e:"🏃"},
+  {n:"Attack Hole",u:GNMATH+"13.html",t:"gnmath",e:"🌀"},
+  {n:"Bridge Race",u:GNMATH+"14.html",t:"gnmath",e:"🌉"},
+  {n:"Magic Tiles 3",u:GNMATH+"17.html",t:"gnmath",e:"🎹"},
+  {n:"Supreme Duelist",u:GNMATH+"19.html",t:"gnmath",e:"⚔"},
+  {n:"Tall Man Run",u:GNMATH+"20a.html",t:"gnmath",e:"🏃"},
+  {n:"Mob Control",u:GNMATH+"22.html",t:"gnmath",e:"👾"},
+  {n:"Pou",u:GNMATH+"23.html",t:"gnmath",e:"🟤"},
+  {n:"Crossy Road",u:GNMATH+"24.html",t:"gnmath",e:"🐔"},
+  {n:"Basket Battle",u:GNMATH+"25.html",t:"gnmath",e:"🏀"},
+  {n:"GD Lite Remake",u:GNMATH+"27-f.html",t:"gnmath",e:"🔺"},
+  {n:"Basketball Frvr",u:GNMATH+"28.html",t:"gnmath",e:"🏀"},
+  {n:"Bazooka Boy",u:GNMATH+"29.html",t:"gnmath",e:"💥"},
+  {n:"Retro Bowl (GN)",u:GNMATH+"33.html",t:"gnmath",e:"🏈"},
+  {n:"Retro Bowl College",u:GNMATH+"34-fixed.html",t:"gnmath",e:"🏈"},
+  {n:"FNAF 1",u:GNMATH+"38.html",t:"gnmath",e:"🐻"},
+  {n:"FNAF 2",u:GNMATH+"39.html",t:"gnmath",e:"🐰"},
+  {n:"FNAF 3",u:GNMATH+"40.html",t:"gnmath",e:"🦊"},
+  {n:"FNAF 4",u:GNMATH+"41.html",t:"gnmath",e:"🐸"},
+  {n:"Road of Fury",u:GNMATH+"42.html",t:"gnmath",e:"🚗"},
+  {n:"Ragdoll Hit",u:GNMATH+"44-fix.html",t:"gnmath",e:"💥"},
+  {n:"Vex 1",u:GNMATH+"45.html",t:"gnmath",e:"🧱"},
+  {n:"Crazy Cattle 3D (GN)",u:GNMATH+"179.html",t:"gnmath",e:"🐄"},
+  {n:"Slope (GN)",u:GNMATH+"27.html",t:"gnmath",e:"🔴"},
 ];
-
-// ── STATE ──
 let curPage='home', curFilter='all', curSearch='', sbCollapsed=false;
 let curTheme='', launchStyle='blank';
 let activeRT=1;
@@ -823,6 +1011,7 @@ function initApp(){
   if(savedFav)applyFavicon(savedFav);
   const savedTitle=localStorage.getItem('moon-title');
   if(savedTitle){document.title=savedTitle;document.getElementById('s-tab-title').value=savedTitle;}
+  initAnnouncement();
 }
 
 // ── CLOCK ──
@@ -935,7 +1124,7 @@ function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').repl
 
 function openGame(url,name,type){
   const style=document.getElementById('s-launch-style')?.value||launchStyle;
-  const isCDN=url.includes('jsdelivr')||url.includes('rawcdn.githack')||url.includes('raw.githubusercontent');
+  const isCDN=url.includes('jsdelivr')||url.includes('rawcdn.githack')||url.includes('raw.githubusercontent')||url.includes('cdn.jsdelivr');
 
   if(isCDN){
     showToast('Loading '+name+'…');
@@ -1094,6 +1283,7 @@ function showToast(msg){
   t.textContent=msg;t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2400);
 }
+
 </script>
 </body>
 </html>
