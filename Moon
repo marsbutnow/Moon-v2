@@ -28,6 +28,65 @@
 .th-rainbow .sb-item.active{border-image:linear-gradient(135deg,#ff4466,#44ffcc) 1;}
 @keyframes rbshift{0%{background-position:0% 50%}100%{background-position:200% 50%}}
 
+/* ── MARS (old game stash revival) ── */
+.th-mars{--bg:#080b14;--bg2:#0d1220;--s:#0f1627;--s2:#162035;--a:#e63946;--a2:#00d4ff;--a3:#ff6b35;--text:#c8d6e5;--dim:#5a7a9a;--border:#1a2a40;--glow:rgba(0,212,255,.18);}
+.th-mars .moon-wordmark{background:linear-gradient(135deg,#e63946,#00d4ff)!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important;background-clip:text!important;}
+.th-mars .sb-logo{color:#e63946;}
+/* ── 50 NEW THEMES ── */
+.th-rose{--bg:#0f0308;--bg2:#180510;--s:#200818;--s2:#2a0c20;--a:#ff2d78;--a2:#ff85aa;--a3:#ffb3c6;--text:#ffe0ec;--dim:#7a2040;--border:#3d0820;--glow:rgba(255,45,120,.22);}
+.th-mint{--bg:#021208;--bg2:#031a0c;--s:#042410;--s2:#063018;--a:#00c896;--a2:#40e8b8;--a3:#80ffdd;--text:#d0fff0;--dim:#206040;--border:#084020;--glow:rgba(0,200,150,.2);}
+.th-gold{--bg:#0c0900;--bg2:#140d00;--s:#1c1200;--s2:#241800;--a:#f0b429;--a2:#ffd166;--a3:#fff0a0;--text:#fff8e0;--dim:#806020;--border:#402800;--glow:rgba(240,180,41,.22);}
+.th-violet{--bg:#08020f;--bg2:#0e041a;--s:#140625;--s2:#1a0830;--a:#9d4edd;--a2:#c77dff;--a3:#e0aaff;--text:#f0e0ff;--dim:#5a2888;--border:#280850;--glow:rgba(157,78,221,.25);}
+.th-ocean{--bg:#000c18;--bg2:#001428;--s:#001c38;--s2:#00264a;--a:#0096c7;--a2:#48cae4;--a3:#90e0ef;--text:#caf0f8;--dim:#1a5a7a;--border:#003560;--glow:rgba(0,150,199,.22);}
+.th-forest{--bg:#020c02;--bg2:#041404;--s:#061c06;--s2:#082808;--a:#2d6a4f;--a2:#52b788;--a3:#95d5b2;--text:#d8f3dc;--dim:#1a4a30;--border:#083018;--glow:rgba(82,183,136,.2);}
+.th-lava{--bg:#0f0000;--bg2:#180000;--s:#200000;--s2:#2c0000;--a:#ff4500;--a2:#ff8c42;--a3:#ffcc00;--text:#fff0cc;--dim:#7a2000;--border:#3d0800;--glow:rgba(255,69,0,.25);}
+.th-arctic{--bg:#04080f;--bg2:#060c18;--s:#08122a;--s2:#0c1838;--a:#7ec8e3;--a2:#b8e8f5;--a3:#ffffff;--text:#e8f8ff;--dim:#3a6880;--border:#143060;--glow:rgba(126,200,227,.2);}
+.th-sakura{--bg:#0f0408;--bg2:#180608;--s:#220810;--s2:#2c0a14;--a:#ff9eb5;--a2:#ffccd5;--a3:#fff0f3;--text:#fff0f5;--dim:#7a3a4a;--border:#3d1020;--glow:rgba(255,158,181,.2);}
+.th-slate{--bg:#0a0e14;--bg2:#10161e;--s:#161e28;--s2:#1c2632;--a:#5b8dee;--a2:#89aaff;--a3:#c0d0ff;--text:#dce8ff;--dim:#3a5280;--border:#202c40;--glow:rgba(91,141,238,.22);}
+.th-rust{--bg:#0c0600;--bg2:#140800;--s:#1c0c00;--s2:#261000;--a:#b7410e;--a2:#e35d2b;--a3:#f4a261;--text:#ffe8d6;--dim:#6a2808;--border:#3a1200;--glow:rgba(183,65,14,.22);}
+.th-galaxy{--bg:#020008;--bg2:#04000e;--s:#080018;--s2:#0c0022;--a:#845ec2;--a2:#d65db1;--a3:#ff9671;--text:#ffe8f5;--dim:#4a1870;--border:#160030;--glow:rgba(132,94,194,.25);}
+.th-desert{--bg:#120a00;--bg2:#1c1000;--s:#281600;--s2:#342000;--a:#e9c46a;--a2:#f4a261;--a3:#e76f51;--text:#fff8e8;--dim:#7a5020;--border:#442800;--glow:rgba(233,196,106,.2);}
+.th-midnight{--bg:#000005;--bg2:#02020a;--s:#050510;--s2:#080818;--a:#3a86ff;--a2:#80b3ff;--a3:#bbd4ff;--text:#e0ecff;--dim:#2a3a60;--border:#0c1028;--glow:rgba(58,134,255,.22);}
+.th-cherry{--bg:#0c0204;--bg2:#140408;--s:#1c060c;--s2:#260810;--a:#dc143c;--a2:#ff4d6d;--a3:#ff8fa3;--text:#ffe8ec;--dim:#6a1028;--border:#3a0810;--glow:rgba(220,20,60,.25);}
+.th-teal{--bg:#00080a;--bg2:#000e10;--s:#001418;--s2:#001c22;--a:#009688;--a2:#26c6b4;--a3:#80cbc4;--text:#e0f2f1;--dim:#1a5a54;--border:#00303a;--glow:rgba(0,150,136,.22);}
+.th-crimson{--bg:#0a0002;--bg2:#120004;--s:#1a0006;--s2:#220008;--a:#c1121f;--a2:#e63950;--a3:#ff6b7a;--text:#ffe0e4;--dim:#6a0818;--border:#380008;--glow:rgba(193,18,31,.25);}
+.th-lime{--bg:#040800;--bg2:#060e00;--s:#081400;--s2:#0a1c00;--a:#a8d400;--a2:#c8f000;--a3:#e8ff80;--text:#f0ffe0;--dim:#486000;--border:#183000;--glow:rgba(168,212,0,.22);}
+.th-copper{--bg:#0c0600;--bg2:#160900;--s:#200e00;--s2:#2a1400;--a:#b87333;--a2:#d4924a;--a3:#e8b870;--text:#fff0d8;--dim:#7a4a18;--border:#3a1800;--glow:rgba(184,115,51,.22);}
+.th-plum{--bg:#08000c;--bg2:#100014;--s:#180020;--s2:#20002c;--a:#7b2d8b;--a2:#ad5cc6;--a3:#d4a0e8;--text:#f0e0f8;--dim:#4a1a5a;--border:#28004a;--glow:rgba(123,45,139,.25);}
+.th-dusk{--bg:#08060f;--bg2:#0e0c18;--s:#141222;--s2:#1a182c;--a:#ff7b54;--a2:#ffb347;--a3:#ffd580;--text:#fff8ee;--dim:#6a4830;--border:#2a1c10;--glow:rgba(255,123,84,.22);}
+.th-jade{--bg:#010c06;--bg2:#021408;--s:#031c0c;--s2:#042810;--a:#00a878;--a2:#00d49a;--a3:#60ffcc;--text:#d0fff0;--dim:#1a5a40;--border:#063820;--glow:rgba(0,168,120,.22);}
+.th-maroon2{--bg:#0a0000;--bg2:#140000;--s:#1c0000;--s2:#260000;--a:#800000;--a2:#c00020;--a3:#e05060;--text:#ffe0e4;--dim:#5a1018;--border:#360000;--glow:rgba(128,0,0,.25);}
+.th-cosmic{--bg:#010108;--bg2:#020210;--s:#04041c;--s2:#060628;--a:#6e40c9;--a2:#a16fe8;--a3:#d4a8ff;--text:#f0e8ff;--dim:#381870;--border:#0e0050;--glow:rgba(110,64,201,.25);}
+.th-infrared{--bg:#0c0000;--bg2:#160000;--s:#200200;--s2:#2c0400;--a:#ff1744;--a2:#ff616f;--a3:#ffa7b0;--text:#ffe8ec;--dim:#7a0820;--border:#3d0008;--glow:rgba(255,23,68,.28);}
+.th-steel{--bg:#080c10;--bg2:#0e1218;--s:#141a22;--s2:#1c242e;--a:#4a90a4;--a2:#6db8cc;--a3:#a4d8e8;--text:#e0eeF4;--dim:#2a5060;--border:#1a2c38;--glow:rgba(74,144,164,.2);}
+.th-pastel{--bg:#f5f0ff;--bg2:#fff;--s:#fff;--s2:#f0ecff;--a:#a78bfa;--a2:#c4b5fd;--a3:#fda4af;--text:#3a2856;--dim:#9090c0;--border:#e4d8ff;--glow:rgba(167,139,250,.2);}
+.th-amber{--bg:#0c0700;--bg2:#160e00;--s:#201500;--s2:#2c1c00;--a:#ff8f00;--a2:#ffa726;--a3:#ffcc80;--text:#fff8e0;--dim:#7a4400;--border:#3d1c00;--glow:rgba(255,143,0,.22);}
+.th-indigo{--bg:#02020c;--bg2:#040418;--s:#060624;--s2:#080830;--a:#3d5af1;--a2:#7b8ff5;--a3:#bac4ff;--text:#e8ecff;--dim:#2a2870;--border:#0c1060;--glow:rgba(61,90,241,.25);}
+.th-sage{--bg:#060c08;--bg2:#0a1410;--s:#0e1c18;--s2:#122820;--a:#6b9e78;--a2:#94c4a0;--a3:#c4e4cc;--text:#e8f4ec;--dim:#304838;--border:#183028;--glow:rgba(107,158,120,.2);}
+.th-brick{--bg:#0c0400;--bg2:#160800;--s:#200e00;--s2:#2a1400;--a:#c0392b;--a2:#e74c3c;--a3:#f1948a;--text:#ffe8e4;--dim:#6a1808;--border:#3a0c00;--glow:rgba(192,57,43,.25);}
+.th-frost{--bg:#e8f4ff;--bg2:#f4faff;--s:#fff;--s2:#eaf5ff;--a:#2196f3;--a2:#64b5f6;--a3:#bbdefb;--text:#0d2a40;--dim:#80a0c0;--border:#c0dcf0;--glow:rgba(33,150,243,.18);}
+.th-obsidian{--bg:#000000;--bg2:#050508;--s:#0a0a10;--s2:#101018;--a:#4a4a6a;--a2:#8080aa;--a3:#b0b0d0;--text:#d8d8e8;--dim:#404055;--border:#181828;--glow:rgba(128,128,170,.15);}
+.th-toxic{--bg:#020800;--bg2:#041000;--s:#061800;--s2:#082200;--a:#39ff14;--a2:#80ff44;--a3:#aaff88;--text:#e8ffe0;--dim:#2a5a10;--border:#0c3000;--glow:rgba(57,255,20,.25);}
+.th-navy{--bg:#000408;--bg2:#000810;--s:#000e1c;--s2:#001428;--a:#1a4a8a;--a2:#3a7acc;--a3:#80aaee;--text:#d0e4ff;--dim:#1a3a60;--border:#001830;--glow:rgba(58,122,204,.2);}
+.th-blush{--bg:#0f0508;--bg2:#180810;--s:#220c18;--s2:#2c1020;--a:#ff6b9d;--a2:#ffaacc;--a3:#ffddee;--text:#fff0f8;--dim:#7a2848;--border:#3d0c20;--glow:rgba(255,107,157,.22);}
+.th-graphite{--bg:#0a0a0a;--bg2:#111111;--s:#191919;--s2:#222222;--a:#666666;--a2:#999999;--a3:#cccccc;--text:#e8e8e8;--dim:#444444;--border:#2a2a2a;--glow:rgba(153,153,153,.15);}
+.th-lavender{--bg:#080614;--bg2:#0e0c1e;--s:#141228;--s2:#1c1a38;--a:#9f86c0;--a2:#c4b0e4;--a3:#e4d8ff;--text:#f0ecff;--dim:#4a3870;--border:#24204a;--glow:rgba(159,134,192,.2);}
+.th-coral{--bg:#0f0500;--bg2:#180900;--s:#220d00;--s2:#2c1200;--a:#ff6b47;--a2:#ff8e72;--a3:#ffb8a4;--text:#fff0ec;--dim:#7a2c18;--border:#3d1008;--glow:rgba(255,107,71,.22);}
+.th-electric{--bg:#000208;--bg2:#000410;--s:#00061c;--s2:#000828;--a:#0080ff;--a2:#40a8ff;--a3:#88ccff;--text:#d0e8ff;--dim:#1a3a6a;--border:#001440;--glow:rgba(0,128,255,.3);}
+.th-wine{--bg:#0a0004;--bg2:#120006;--s:#1a000a;--s2:#22000e;--a:#722f37;--a2:#aa4a55;--a3:#d4808a;--text:#ffe8ec;--dim:#4a1820;--border:#2a0008;--glow:rgba(114,47,55,.25);}
+.th-aurora{--bg:#010c0a;--bg2:#02140e;--s:#041e16;--s2:#06281e;--a:#00ff88;--a2:#00ddcc;--a3:#88ffee;--text:#d0fff8;--dim:#186848;--border:#083828;--glow:rgba(0,255,136,.2);}
+.th-sunset{--bg:#0c0200;--bg2:#160500;--s:#200900;--s2:#2c0e00;--a:#ff5e00;--a2:#ff9040;--a3:#ffcc88;--text:#fff4e0;--dim:#7a3000;--border:#3d0c00;--glow:rgba(255,94,0,.25);}
+.th-pitch{--bg:#000000;--bg2:#020202;--s:#040404;--s2:#060606;--a:#333333;--a2:#555555;--a3:#888888;--text:#cccccc;--dim:#333333;--border:#111111;--glow:rgba(85,85,85,.1);}
+.th-neon2{--bg:#000008;--bg2:#000010;--s:#000020;--s2:#00002c;--a:#ff00ff;--a2:#cc00ff;--a3:#ff88ff;--text:#ffe8ff;--dim:#5a0070;--border:#1a0040;--glow:rgba(255,0,255,.28);}
+.th-bronze{--bg:#0a0600;--bg2:#120900;--s:#1c0e00;--s2:#261400;--a:#cd7f32;--a2:#e8a860;--a3:#f4cc98;--text:#fff8e8;--dim:#6a3c10;--border:#381800;--glow:rgba(205,127,50,.22);}
+.th-cobalt{--bg:#000410;--bg2:#000818;--s:#000e28;--s2:#001438;--a:#0047ab;--a2:#2272d9;--a3:#70a8f0;--text:#d4e4ff;--dim:#1a3060;--border:#001a50;--glow:rgba(34,114,217,.25);}
+.th-spring{--bg:#f0fff4;--bg2:#ffffff;--s:#ffffff;--s2:#e8fff0;--a:#22c55e;--a2:#4ade80;--a3:#86efac;--text:#14532d;--dim:#6ab080;--border:#bbf7d0;--glow:rgba(34,197,94,.18);}
+.th-dracula{--bg:#282a36;--bg2:#1e1f2b;--s:#21222c;--s2:#191a24;--a:#bd93f9;--a2:#ff79c6;--a3:#50fa7b;--text:#f8f8f2;--dim:#6272a4;--border:#44475a;--glow:rgba(189,147,249,.25);}
+.th-mocha{--bg:#1e1b18;--bg2:#252220;--s:#2d2925;--s2:#353028;--a:#dd8844;--a2:#e8a868;--a3:#f4cc98;--text:#ede0d4;--dim:#7a6050;--border:#4a3828;--glow:rgba(221,136,68,.2);}
+.th-cyberpunk{--bg:#0d0015;--bg2:#130020;--s:#1c0030;--s2:#250040;--a:#f0e;--a2:#0ef;--a3:#ff0;--text:#fff;--dim:#6040a0;--border:#300060;--glow:rgba(255,0,238,.3);}
+.th-cyberpunk .moon-wordmark{background:linear-gradient(135deg,#ff00ee,#00eeff,#ffff00)!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important;background-clip:text!important;}
+
+
 /* AMOLED */
 .th-amoled{--bg:#000000;--bg2:#000000;--s:#0a0a0a;--s2:#111111;--a:#ffffff;--a2:#cccccc;--a3:#888888;--text:#ffffff;--dim:#444444;--border:#1a1a1a;--glow:rgba(255,255,255,.1);}
 .th-amoled body::before{display:none;}
@@ -234,12 +293,12 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 .tog-thumb{position:absolute;top:3px;left:3px;width:16px;height:16px;background:#fff;border-radius:50%;transition:transform .2s;}
 .tog input:checked~.tog-thumb{transform:translateX(18px);}
 /* theme grid */
-.theme-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;}
-.th-chip{border:2px solid var(--border);border-radius:10px;padding:8px 6px;cursor:pointer;text-align:center;transition:all .18s;position:relative;background:var(--bg2);}
+.theme-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;}
+.th-chip{border:1px solid var(--border);border-radius:8px;padding:6px 4px;cursor:pointer;text-align:center;transition:all .18s;position:relative;background:var(--bg2);}
 .th-chip:hover,.th-chip.on{border-color:var(--a);}
 .th-chip.on::after{content:'✓';position:absolute;top:3px;right:5px;font-size:10px;color:var(--a);}
-.th-swatch{width:100%;height:20px;border-radius:5px;margin-bottom:5px;}
-.th-name{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--dim);}
+.th-swatch{width:100%;height:16px;border-radius:4px;margin-bottom:3px;}
+.th-name{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.5px;color:var(--dim);}
 /* anim scale */
 .range-row{display:flex;align-items:center;gap:10px;}
 .s-range{flex:1;accent-color:var(--a);cursor:pointer;}
@@ -578,8 +637,10 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
           <div class="s-card">
             <div class="s-card-hdr"><h3>Theme</h3><p>Choose your color scheme</p></div>
             <div class="s-card-body">
-              <div class="theme-grid">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);margin-bottom:8px;letter-spacing:1px;">Click any theme to apply instantly</div>
+              <div class="theme-grid" style="grid-template-columns:repeat(5,1fr);gap:5px;">
                 <div class="th-chip on" id="tc-" onclick="setTheme('',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#0c0c10,#7c6aff)"></div><div class="th-name">Moon</div></div>
+                <div class="th-chip" id="tc-th-mars" onclick="setTheme('th-mars',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#080b14,#e63946 50%,#00d4ff)"></div><div class="th-name">Mars</div></div>
                 <div class="th-chip" id="tc-th-neon" onclick="setTheme('th-neon',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#040410,#00f5ff)"></div><div class="th-name">Neon</div></div>
                 <div class="th-chip" id="tc-th-ember" onclick="setTheme('th-ember',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#0e0600,#ff7a00)"></div><div class="th-name">Ember</div></div>
                 <div class="th-chip" id="tc-th-hacker" onclick="setTheme('th-hacker',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#000400,#00ff41)"></div><div class="th-name">Hacker</div></div>
@@ -591,6 +652,55 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
                 <div class="th-chip" id="tc-th-rainbow" onclick="setTheme('th-rainbow',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#ff4466,#ffdd44,#44ffcc,#4488ff,#aa44ff)"></div><div class="th-name">Rainbow</div></div>
                 <div class="th-chip" id="tc-th-amoled" onclick="setTheme('th-amoled',this)"><div class="th-swatch" style="background:#000;border:1px solid #333"></div><div class="th-name">AMOLED</div></div>
                 <div class="th-chip" id="tc-th-rgb" onclick="setTheme('th-rgb',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#ff0055,#ff8800,#00ff88,#00ccff,#8800ff,#ff00cc)"></div><div class="th-name">RGB</div></div>
+                <div class="th-chip" id="tc-th-rose" onclick="setTheme('th-rose',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#0f0308,#ff2d78)"></div><div class="th-name">Rose</div></div>
+                <div class="th-chip" id="tc-th-mint" onclick="setTheme('th-mint',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#021208,#00c896)"></div><div class="th-name">Mint</div></div>
+                <div class="th-chip" id="tc-th-gold" onclick="setTheme('th-gold',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#0c0900,#f0b429)"></div><div class="th-name">Gold</div></div>
+                <div class="th-chip" id="tc-th-violet" onclick="setTheme('th-violet',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#08020f,#9d4edd)"></div><div class="th-name">Violet</div></div>
+                <div class="th-chip" id="tc-th-ocean" onclick="setTheme('th-ocean',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#000c18,#0096c7)"></div><div class="th-name">Ocean</div></div>
+                <div class="th-chip" id="tc-th-forest" onclick="setTheme('th-forest',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#020c02,#52b788)"></div><div class="th-name">Forest</div></div>
+                <div class="th-chip" id="tc-th-lava" onclick="setTheme('th-lava',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#0f0000,#ff4500)"></div><div class="th-name">Lava</div></div>
+                <div class="th-chip" id="tc-th-arctic" onclick="setTheme('th-arctic',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#04080f,#7ec8e3)"></div><div class="th-name">Arctic</div></div>
+                <div class="th-chip" id="tc-th-sakura" onclick="setTheme('th-sakura',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#0f0408,#ff9eb5)"></div><div class="th-name">Sakura</div></div>
+                <div class="th-chip" id="tc-th-slate" onclick="setTheme('th-slate',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#0a0e14,#5b8dee)"></div><div class="th-name">Slate</div></div>
+                <div class="th-chip" id="tc-th-rust" onclick="setTheme('th-rust',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#0c0600,#b7410e)"></div><div class="th-name">Rust</div></div>
+                <div class="th-chip" id="tc-th-galaxy" onclick="setTheme('th-galaxy',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#020008,#845ec2,#d65db1)"></div><div class="th-name">Galaxy</div></div>
+                <div class="th-chip" id="tc-th-desert" onclick="setTheme('th-desert',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#120a00,#e9c46a,#e76f51)"></div><div class="th-name">Desert</div></div>
+                <div class="th-chip" id="tc-th-midnight" onclick="setTheme('th-midnight',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#000005,#3a86ff)"></div><div class="th-name">Midnight</div></div>
+                <div class="th-chip" id="tc-th-cherry" onclick="setTheme('th-cherry',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#0c0204,#dc143c)"></div><div class="th-name">Cherry</div></div>
+                <div class="th-chip" id="tc-th-teal" onclick="setTheme('th-teal',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#00080a,#009688)"></div><div class="th-name">Teal</div></div>
+                <div class="th-chip" id="tc-th-lime" onclick="setTheme('th-lime',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#040800,#a8d400)"></div><div class="th-name">Lime</div></div>
+                <div class="th-chip" id="tc-th-copper" onclick="setTheme('th-copper',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#0c0600,#b87333)"></div><div class="th-name">Copper</div></div>
+                <div class="th-chip" id="tc-th-plum" onclick="setTheme('th-plum',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#08000c,#7b2d8b)"></div><div class="th-name">Plum</div></div>
+                <div class="th-chip" id="tc-th-dusk" onclick="setTheme('th-dusk',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#08060f,#ff7b54)"></div><div class="th-name">Dusk</div></div>
+                <div class="th-chip" id="tc-th-jade" onclick="setTheme('th-jade',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#010c06,#00a878)"></div><div class="th-name">Jade</div></div>
+                <div class="th-chip" id="tc-th-cosmic" onclick="setTheme('th-cosmic',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#010108,#6e40c9)"></div><div class="th-name">Cosmic</div></div>
+                <div class="th-chip" id="tc-th-infrared" onclick="setTheme('th-infrared',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#0c0000,#ff1744)"></div><div class="th-name">Infrared</div></div>
+                <div class="th-chip" id="tc-th-steel" onclick="setTheme('th-steel',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#080c10,#4a90a4)"></div><div class="th-name">Steel</div></div>
+                <div class="th-chip" id="tc-th-pastel" onclick="setTheme('th-pastel',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#f5f0ff,#a78bfa)"></div><div class="th-name">Pastel</div></div>
+                <div class="th-chip" id="tc-th-amber" onclick="setTheme('th-amber',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#0c0700,#ff8f00)"></div><div class="th-name">Amber</div></div>
+                <div class="th-chip" id="tc-th-indigo" onclick="setTheme('th-indigo',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#02020c,#3d5af1)"></div><div class="th-name">Indigo</div></div>
+                <div class="th-chip" id="tc-th-sage" onclick="setTheme('th-sage',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#060c08,#6b9e78)"></div><div class="th-name">Sage</div></div>
+                <div class="th-chip" id="tc-th-brick" onclick="setTheme('th-brick',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#0c0400,#c0392b)"></div><div class="th-name">Brick</div></div>
+                <div class="th-chip" id="tc-th-frost" onclick="setTheme('th-frost',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#e8f4ff,#2196f3)"></div><div class="th-name">Frost</div></div>
+                <div class="th-chip" id="tc-th-obsidian" onclick="setTheme('th-obsidian',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#000,#4a4a6a)"></div><div class="th-name">Obsidian</div></div>
+                <div class="th-chip" id="tc-th-toxic" onclick="setTheme('th-toxic',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#020800,#39ff14)"></div><div class="th-name">Toxic</div></div>
+                <div class="th-chip" id="tc-th-navy" onclick="setTheme('th-navy',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#000408,#1a4a8a)"></div><div class="th-name">Navy</div></div>
+                <div class="th-chip" id="tc-th-blush" onclick="setTheme('th-blush',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#0f0508,#ff6b9d)"></div><div class="th-name">Blush</div></div>
+                <div class="th-chip" id="tc-th-graphite" onclick="setTheme('th-graphite',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#0a0a0a,#666)"></div><div class="th-name">Graphite</div></div>
+                <div class="th-chip" id="tc-th-lavender" onclick="setTheme('th-lavender',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#080614,#9f86c0)"></div><div class="th-name">Lavender</div></div>
+                <div class="th-chip" id="tc-th-coral" onclick="setTheme('th-coral',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#0f0500,#ff6b47)"></div><div class="th-name">Coral</div></div>
+                <div class="th-chip" id="tc-th-electric" onclick="setTheme('th-electric',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#000208,#0080ff)"></div><div class="th-name">Electric</div></div>
+                <div class="th-chip" id="tc-th-wine" onclick="setTheme('th-wine',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#0a0004,#722f37)"></div><div class="th-name">Wine</div></div>
+                <div class="th-chip" id="tc-th-aurora" onclick="setTheme('th-aurora',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#010c0a,#00ff88,#00ddcc)"></div><div class="th-name">Aurora</div></div>
+                <div class="th-chip" id="tc-th-sunset" onclick="setTheme('th-sunset',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#0c0200,#ff5e00,#ffcc88)"></div><div class="th-name">Sunset</div></div>
+                <div class="th-chip" id="tc-th-pitch" onclick="setTheme('th-pitch',this)"><div class="th-swatch" style="background:#000;border:1px solid #222"></div><div class="th-name">Pitch</div></div>
+                <div class="th-chip" id="tc-th-neon2" onclick="setTheme('th-neon2',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#000008,#ff00ff)"></div><div class="th-name">Neon Pink</div></div>
+                <div class="th-chip" id="tc-th-bronze" onclick="setTheme('th-bronze',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#0a0600,#cd7f32)"></div><div class="th-name">Bronze</div></div>
+                <div class="th-chip" id="tc-th-cobalt" onclick="setTheme('th-cobalt',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#000410,#0047ab)"></div><div class="th-name">Cobalt</div></div>
+                <div class="th-chip" id="tc-th-spring" onclick="setTheme('th-spring',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#f0fff4,#22c55e)"></div><div class="th-name">Spring</div></div>
+                <div class="th-chip" id="tc-th-dracula" onclick="setTheme('th-dracula',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#282a36,#bd93f9)"></div><div class="th-name">Dracula</div></div>
+                <div class="th-chip" id="tc-th-mocha" onclick="setTheme('th-mocha',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#1e1b18,#dd8844)"></div><div class="th-name">Mocha</div></div>
+                <div class="th-chip" id="tc-th-cyberpunk" onclick="setTheme('th-cyberpunk',this)"><div class="th-swatch" style="background:linear-gradient(135deg,#0d0015,#ff00ee,#00eeff)"></div><div class="th-name">Cyberpunk</div></div>
               </div>
             </div>
           </div>
@@ -849,68 +959,73 @@ function updateUserUI(){
   if(ab)ab.classList.toggle('show',loggedIn&&currentUser.role==='admin');
 }
 
-// ── GLOBAL CHAT (Self-hosted WebSocket — domain-only) ──
-// Connects to server.js running on the same domain/host.
-// ws://  for http hosting,  wss://  for https hosting — auto-detected below.
-function getChatWsUrl(){
-  const proto=location.protocol==='https:'?'wss':'ws';
-  const host=location.hostname;
-  const port=3001; // must match server.js WS_PORT
-  // If served from localhost or a raw IP, use explicit port
-  // If served from a proper domain (school host, Replit, etc.) the server handles it
-  return `${proto}://${host}:${port}`;
-}
+// ── GLOBAL CHAT (Pure HTML — BroadcastChannel + localStorage) ──
+// Works across all tabs on the SAME domain with NO server needed.
+// Messages persist in localStorage so you see recent history on open.
+const CHAT_KEY   = 'moon-chat-messages';  // localStorage key
+const CHAT_CH    = 'moon-chat-v1';        // BroadcastChannel name
+const MAX_STORED = 60;                    // messages to keep
 
-let psSocket=null, psConnected=false, chatOpen=false, unreadCount=0;
-let reconnectDelay=1500;
+let bc=null, chatOpen=false, unreadCount=0, psConnected=true;
 
 function connectPS(){
-  if(psSocket&&psSocket.readyState<=1)return;
-  const url=getChatWsUrl();
+  // BroadcastChannel — works between tabs on same origin/domain
   try{
-    psSocket=new WebSocket(url);
-    psSocket.onopen=()=>{
-      psConnected=true;
-      reconnectDelay=1500;
-      updateChatOnline('● live');
+    bc=new BroadcastChannel(CHAT_CH);
+    bc.onmessage=e=>{
+      if(e.data&&e.data.t)handleChatMsg(e.data);
     };
-    psSocket.onmessage=e=>{
-      try{
-        const msg=JSON.parse(e.data);
-        if(msg&&msg.t)handleChatMsg(msg);
-      }catch(err){}
-    };
-    psSocket.onclose=()=>{
-      psConnected=false;
-      updateChatOnline('○ reconnecting...');
-      reconnectDelay=Math.min(reconnectDelay*1.5,15000);
-      setTimeout(connectPS,reconnectDelay);
-    };
-    psSocket.onerror=()=>{
-      psConnected=false;
-      updateChatOnline('○ server offline');
-    };
-  }catch(e){updateChatOnline('○ error');}
+    updateChatOnline('● live');
+  }catch(ex){
+    // Fallback: storage events (works even in single-tab mode)
+    window.addEventListener('storage',ev=>{
+      if(ev.key===CHAT_KEY+'_broadcast'){
+        try{const msg=JSON.parse(ev.newValue);if(msg&&msg.t)handleChatMsg(msg);}catch(e){}
+      }
+    });
+    updateChatOnline('● live');
+  }
+  // Load history from localStorage
+  loadHistory();
 }
 
 function psend(obj){
-  if(!psSocket||psSocket.readyState!==1)return false;
-  psSocket.send(JSON.stringify(obj));
+  // Save to localStorage history
+  saveToHistory(obj);
+  // Broadcast to other tabs
+  try{
+    if(bc)bc.postMessage(obj);
+    else localStorage.setItem(CHAT_KEY+'_broadcast',JSON.stringify({...obj,_r:Math.random()}));
+  }catch(e){}
+  // Also render it ourselves immediately
+  handleChatMsg(obj);
   return true;
 }
 
-function handleChatMsg(msg){
-  // Server sends history array on connect — replay all at once
-  if(msg.t==='history'){
-    if(Array.isArray(msg.messages)){
-      msg.messages.forEach(m=>renderChatMsg(m));
-      scrollChatBottom();
-    }
-    return;
-  }
+function saveToHistory(msg){
+  if(msg.t==='sys'&&msg.text==='')return;
+  try{
+    const hist=JSON.parse(localStorage.getItem(CHAT_KEY)||'[]');
+    hist.push(msg);
+    if(hist.length>MAX_STORED)hist.splice(0,hist.length-MAX_STORED);
+    localStorage.setItem(CHAT_KEY,JSON.stringify(hist));
+  }catch(e){}
+}
+
+function loadHistory(){
+  try{
+    const hist=JSON.parse(localStorage.getItem(CHAT_KEY)||'[]');
+    const box=document.getElementById('chat-msgs');
+    if(!box)return;
+    hist.forEach(m=>renderChatMsg(m,true));
+    scrollChatBottom();
+  }catch(e){}
+}
+
+function handleChatMsg(msg,isHistory){
   renderChatMsg(msg);
   if(chatOpen){scrollChatBottom();}
-  else if(msg.t!=='sys'){
+  else if(!isHistory&&msg.t!=='sys'){
     unreadCount++;
     const u=document.getElementById('chat-unread');
     u.textContent=unreadCount>9?'9+':unreadCount;
@@ -918,7 +1033,7 @@ function handleChatMsg(msg){
   }
 }
 
-function renderChatMsg(msg){
+function renderChatMsg(msg,isHistory){
   const box=document.getElementById('chat-msgs');
   if(!box)return;
   const div=document.createElement('div');
@@ -931,7 +1046,7 @@ function renderChatMsg(msg){
     const hh=now.getHours()%12||12, mm=String(now.getMinutes()).padStart(2,'0');
     const isAdmin=msg.role==='admin'||msg.t==='ann';
     div.innerHTML=`<div class="chat-msg-head"><span class="chat-msg-user${isAdmin?' admin':''}">${msg.t==='ann'?'📣 ':''}${escH(msg.user||'?')}</span><span class="chat-msg-time">${hh}:${mm}</span></div><div class="chat-msg-text">${escH(msg.text)}</div>`;
-    if(msg.t==='ann')showAnnounceBanner(msg.text,msg.user);
+    if(msg.t==='ann'&&!isHistory)showAnnounceBanner(msg.text,msg.user);
   }
   box.appendChild(div);
 }
@@ -950,7 +1065,7 @@ function enableChat(){
   document.getElementById('chat-input').disabled=false;
   document.getElementById('chat-send').disabled=false;
   document.getElementById('chat-input').placeholder='Message as '+currentUser.display+'...';
-  if(psConnected)psend({t:'sys',text:currentUser.display+' joined',ts:Date.now()});
+  psend({t:'sys',text:currentUser.display+' joined',ts:Date.now()});
 }
 function disableChat(){
   document.getElementById('chat-input').disabled=true;
@@ -963,15 +1078,14 @@ function sendChatMsg(){
   if(!currentUser){openLoginModal();return;}
   const inp=document.getElementById('chat-input');
   const text=inp.value.trim();if(!text)return;inp.value='';
-  if(!psend({t:'chat',user:currentUser.display,role:currentUser.role,text,ts:Date.now()}))showToast('Not connected — try again');
+  psend({t:'chat',user:currentUser.display,role:currentUser.role,text,ts:Date.now()});
 }
 
 function sendAnnouncement(){
   if(!currentUser||currentUser.role!=='admin')return;
   const inp=document.getElementById('announce-input');
   const text=inp.value.trim();if(!text)return;inp.value='';
-  if(psend({t:'ann',user:currentUser.display,role:'admin',text,ts:Date.now()}))showToast('📣 Broadcast sent!');
-  else showToast('Not connected');
+  psend({t:'ann',user:currentUser.display,role:'admin',text,ts:Date.now()});showToast('📣 Broadcast sent!');
 }
 
 // Announcement overlay banner (30s auto-dismiss)
@@ -1003,6 +1117,7 @@ function closeAnnBanner(){
 function initChat(){
   document.getElementById('chat-btn').classList.add('show');
   connectPS();
+  updateChatOnline('● live');
 }
 
 // ── GAME DATA ──
