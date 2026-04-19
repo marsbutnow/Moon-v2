@@ -343,68 +343,80 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 .pw-err{font-family:'JetBrains Mono',monospace;font-size:11px;color:#e63946;letter-spacing:1px;min-height:16px;text-align:center;}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 
-/* ── ANNOUNCEMENT BANNER ── */
-#ann-banner{
-  position:fixed;top:0;left:0;right:0;z-index:99998;
-  background:linear-gradient(135deg,var(--s2),var(--s));
-  border-bottom:2px solid var(--a);
-  box-shadow:0 4px 24px rgba(0,0,0,.5),0 0 0 1px rgba(0,0,0,.2),0 2px 0 var(--a);
-  padding:12px 48px 12px 20px;
-  display:none;
-  animation:bannerIn .4s cubic-bezier(.22,1,.36,1);
-  backdrop-filter:blur(16px);
-}
-#ann-banner.show{display:block;}
-#ann-banner.hiding{animation:bannerOut .35s ease forwards;}
-@keyframes bannerIn{from{transform:translateY(-100%);opacity:0;}to{transform:translateY(0);opacity:1;}}
-@keyframes bannerOut{from{transform:translateY(0);opacity:1;}to{transform:translateY(-100%);opacity:0;}}
-#ann-inner{display:flex;align-items:flex-start;gap:12px;}
-#ann-dot{
-  width:8px;height:8px;border-radius:50%;background:var(--a);
-  flex-shrink:0;margin-top:4px;
-  box-shadow:0 0 8px var(--a),0 0 16px var(--glow);
-  animation:dotPulse 1.8s ease-in-out infinite;
-}
-@keyframes dotPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.7);}}
-#ann-label{
-  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;
-  color:var(--a);text-transform:uppercase;flex-shrink:0;margin-top:2px;
-  background:rgba(124,106,255,.12);padding:2px 7px;border-radius:4px;border:1px solid rgba(124,106,255,.25);
-}
-#ann-text{
-  font-family:'Inter',sans-serif;font-size:13px;font-weight:500;
-  color:var(--text);line-height:1.5;flex:1;
-  /* strip heavy gdoc formatting */
-}
-#ann-text p{margin:0;display:inline;}
-#ann-text b,#ann-text strong{color:var(--a2);}
-#ann-text i,#ann-text em{color:var(--dim);font-style:italic;}
-#ann-timer{
-  height:2px;background:var(--border);margin-top:8px;border-radius:1px;overflow:hidden;
-}
-#ann-timer-bar{
-  height:100%;background:linear-gradient(90deg,var(--a),var(--a2));
-  width:100%;transform-origin:left;
-  transition:none;
-}
-#ann-close{
-  position:absolute;top:10px;right:12px;
-  background:none;border:none;cursor:pointer;
-  color:var(--dim);font-size:16px;line-height:1;
-  transition:color .15s,transform .15s;padding:4px;border-radius:4px;
-}
-#ann-close:hover{color:var(--text);transform:scale(1.2);}
-#ann-status{
-  font-family:'JetBrains Mono',monospace;font-size:9px;
-  color:var(--dim);margin-top:4px;letter-spacing:1px;
-}
-font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--a);margin-bottom:10px;display:flex;align-items:center;gap:10px;}
+.section-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--a);margin-bottom:10px;display:flex;align-items:center;gap:10px;}
 .section-lbl::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--a),transparent);opacity:.3;}
+
+/* ── LOGIN MODAL ── */
+#login-modal{position:fixed;inset:0;z-index:9500;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;}
+#login-modal.open{display:flex;}
+.lm-box{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:36px 32px 28px;width:320px;display:flex;flex-direction:column;gap:14px;box-shadow:0 24px 60px rgba(0,0,0,.6);}
+.lm-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--a2);text-align:center;letter-spacing:-.3px;}
+.lm-sub{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);text-align:center;letter-spacing:1px;}
+.lm-inp{background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:13px;padding:10px 14px;border-radius:9px;outline:none;width:100%;transition:border-color .2s;}
+.lm-inp:focus{border-color:var(--a);}
+.lm-inp.bad{border-color:#e63946;animation:shake .35s ease;}
+.lm-btn{background:var(--a);border:none;color:#fff;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;padding:11px;border-radius:9px;cursor:pointer;transition:opacity .15s,transform .15s;}
+.lm-btn:hover{opacity:.85;transform:translateY(-1px);}
+.lm-err{font-family:'JetBrains Mono',monospace;font-size:10px;color:#e63946;text-align:center;min-height:14px;letter-spacing:.5px;}
+#login-btn{background:transparent;border:1px solid var(--border);color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:10px;padding:5px 13px;border-radius:20px;cursor:pointer;transition:all .15s;letter-spacing:1px;flex-shrink:0;}
+#login-btn:hover{border-color:var(--a);color:var(--a2);}
+#user-badge{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--a2);padding:4px 10px;background:rgba(124,106,255,.1);border:1px solid var(--border);border-radius:20px;display:none;align-items:center;gap:6px;flex-shrink:0;}
+#user-badge.show{display:flex;}
+#user-badge .ub-role{color:var(--dim);font-size:9px;}
+#logout-btn{background:none;border:none;cursor:pointer;color:var(--dim);font-size:12px;padding:0 2px;line-height:1;transition:color .15s;}
+#logout-btn:hover{color:#e63946;}
+#home-topbar{position:absolute;top:0;left:0;right:0;z-index:10;padding:12px 20px;display:flex;align-items:center;gap:10px;background:linear-gradient(to bottom,rgba(0,0,0,.5),transparent);}
+#home-user-badge{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--a2);display:none;align-items:center;gap:6px;}
+#home-user-badge.show{display:flex;}
+#login-btn-home{background:transparent;border:1px solid var(--border);color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:10px;padding:5px 13px;border-radius:20px;cursor:pointer;transition:all .15s;letter-spacing:1px;}
+#login-btn-home:hover{border-color:var(--a);color:var(--a2);}
+/* ── GLOBAL CHAT ── */
+#chat-btn{position:fixed;bottom:24px;right:24px;z-index:4000;width:48px;height:48px;border-radius:50%;background:var(--a);border:none;cursor:pointer;display:none;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 20px rgba(0,0,0,.4);transition:transform .15s,box-shadow .15s;}
+#chat-btn.show{display:flex;}
+#chat-btn:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(0,0,0,.5),0 0 16px var(--glow);}
+#chat-unread{position:absolute;top:-3px;right:-3px;width:16px;height:16px;border-radius:50%;background:#e63946;color:#fff;font-family:'JetBrains Mono',monospace;font-size:9px;display:none;align-items:center;justify-content:center;border:2px solid var(--bg);}
+#chat-unread.show{display:flex;}
+#chat-panel{position:fixed;bottom:82px;right:24px;z-index:4000;width:320px;height:430px;background:var(--bg2);border:1px solid var(--border);border-radius:16px;display:none;flex-direction:column;box-shadow:0 12px 40px rgba(0,0,0,.5);overflow:hidden;}
+#chat-panel.open{display:flex;animation:chatPop .2s cubic-bezier(.22,1,.36,1);}
+@keyframes chatPop{from{opacity:0;transform:translateY(12px) scale(.96);}to{opacity:1;transform:none;}}
+#chat-head{padding:12px 14px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0;}
+#chat-head-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--text);flex:1;}
+#chat-online{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--a3);letter-spacing:1px;}
+.chat-close-btn{background:none;border:none;cursor:pointer;color:var(--dim);font-size:15px;padding:2px;transition:color .15s;line-height:1;}
+.chat-close-btn:hover{color:var(--text);}
+#chat-msgs{flex:1;overflow-y:auto;padding:10px 12px;display:flex;flex-direction:column;gap:5px;}
+#chat-msgs::-webkit-scrollbar{width:3px;}
+#chat-msgs::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.chat-msg{display:flex;flex-direction:column;gap:1px;animation:msgIn .18s ease both;}
+@keyframes msgIn{from{opacity:0;transform:translateY(3px);}to{opacity:1;transform:none;}}
+.chat-msg-head{display:flex;align-items:baseline;gap:6px;}
+.chat-msg-user{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;color:var(--a2);}
+.chat-msg-user.admin{color:#f59e0b;}
+.chat-msg-time{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);}
+.chat-msg-text{font-size:12px;color:var(--text);line-height:1.4;word-break:break-word;padding-left:2px;}
+.chat-msg.announce{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:6px 10px;margin:2px 0;}
+.chat-msg-sys{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);text-align:center;padding:2px 0;letter-spacing:.5px;}
+#chat-input-row{padding:9px 12px;border-top:1px solid var(--border);display:flex;gap:7px;flex-shrink:0;}
+#chat-input{flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:11px;padding:7px 11px;border-radius:9px;outline:none;transition:border-color .2s;}
+#chat-input:focus{border-color:var(--a);}
+#chat-input::placeholder{color:var(--dim);}
+#chat-input:disabled{opacity:.5;}
+#chat-send{background:var(--a);border:none;color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;padding:7px 14px;border-radius:9px;cursor:pointer;transition:opacity .15s;flex-shrink:0;}
+#chat-send:hover{opacity:.85;}
+#chat-send:disabled{opacity:.4;cursor:default;}
+#admin-bar{padding:8px 12px;border-top:1px solid rgba(245,158,11,.25);background:rgba(245,158,11,.05);display:none;flex-direction:column;gap:6px;flex-shrink:0;}
+#admin-bar.show{display:flex;}
+#announce-input{width:100%;background:var(--bg);border:1px solid rgba(245,158,11,.3);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:11px;padding:7px 11px;border-radius:9px;outline:none;}
+#announce-input:focus{border-color:#f59e0b;}
+#announce-input::placeholder{color:rgba(245,158,11,.35);}
+#announce-send{background:linear-gradient(135deg,#f59e0b,#d97706);border:none;color:#000;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;padding:7px 14px;border-radius:9px;cursor:pointer;letter-spacing:.5px;width:100%;transition:opacity .15s;}
+#announce-send:hover{opacity:.85;}
+
 </style>
 </head>
 <body>
 
-<!-- PASSWORD -->
+<!-- SITE GATE -->
 <div id="pwscreen">
   <div class="pw-box">
     <div class="pw-logo">Moon</div>
@@ -413,6 +425,18 @@ font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;text-tra
     <input class="pw-inp" id="pwinp" type="password" placeholder="••••" maxlength="24" autocomplete="off" onkeydown="if(event.key==='Enter')checkPW()">
     <button class="pw-btn" onclick="checkPW()">Enter</button>
     <div class="pw-err" id="pwerr"></div>
+  </div>
+</div>
+
+<!-- ACCOUNT LOGIN MODAL -->
+<div id="login-modal">
+  <div class="lm-box">
+    <div class="lm-title">Sign In</div>
+    <div class="lm-sub">moon account · chat access</div>
+    <input class="lm-inp" id="lm-user" type="text" placeholder="Username" autocomplete="off" onkeydown="if(event.key==='Enter')document.getElementById('lm-pass').focus()">
+    <input class="lm-inp" id="lm-pass" type="password" placeholder="Password" autocomplete="off" onkeydown="if(event.key==='Enter')doAccountLogin()">
+    <button class="lm-btn" onclick="doAccountLogin()">Sign In</button>
+    <div class="lm-err" id="lm-err"></div>
   </div>
 </div>
 
@@ -485,11 +509,20 @@ font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;text-tra
       <span id="topbar-logo">Moon</span>
       <input id="topbar-search" type="text" placeholder="Search games..." oninput="onTopSearch()" autocomplete="off">
       <span id="topbar-count"><b id="tbc">0</b> games</span>
+      <div id="user-badge"><span class="ub-name" id="ub-name"></span><span class="ub-role" id="ub-role"></span><button id="logout-btn" onclick="doLogout()" title="Sign out">✕</button></div>
+      <button id="login-btn" onclick="openLoginModal()">Sign In</button>
     </div>
 
     <!-- HOME -->
     <div class="page active" id="pg-home">
       <canvas id="star-canvas"></canvas>
+      <div id="home-topbar">
+        <span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--a2);letter-spacing:-.3px;">Moon</span>
+        <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+          <div id="home-user-badge"><span id="ub-name-home" style="color:var(--a2);font-family:'JetBrains Mono',monospace;font-size:10px;"></span><span id="ub-role-home" style="color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:9px;margin-left:4px;"></span><button onclick="doLogout()" style="background:none;border:none;cursor:pointer;color:var(--dim);font-size:12px;padding:0 2px;line-height:1;" title="Sign out">✕</button></div>
+          <button id="login-btn-home" onclick="openLoginModal()">Sign In</button>
+        </div>
+      </div>
       <div class="home-inner">
         <div class="moon-wordmark">Moon</div>
         <div class="home-time" id="home-clock">--:-- --</div>
@@ -579,74 +612,6 @@ font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;text-tra
               </div>
             </div>
           </div>
-
-          <!-- ANNOUNCEMENT -->
-          <div class="s-card">
-            <div class="s-card-hdr"><h3>Announcement Banner</h3><p>Live text from a Google Doc or Apps Script shown site-wide</p></div>
-            <div class="s-card-body">
-
-              <!-- OPTION A: Apps Script (recommended) -->
-              <div style="background:var(--bg2);border:1px solid var(--a);border-radius:10px;padding:12px 14px;">
-                <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--a2);margin-bottom:2px;">Option A — Apps Script Relay <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--a3);font-weight:400;margin-left:6px;">✓ Most reliable</span></div>
-                <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);line-height:1.9;margin-bottom:8px;">
-                  1. Open <b style="color:var(--a);">script.google.com</b> → <b style="color:var(--a);">New project</b><br>
-                  2. Delete everything, paste this (click to copy):
-                </div>
-                <div onclick="navigator.clipboard.writeText(this.dataset.code).then(()=>{this.style.borderColor='var(--a3)';showToast('Code copied!');setTimeout(()=>this.style.borderColor='',1200);})"
-                  data-code="function doGet(){var id='YOUR_DOC_ID';var doc=DocumentApp.openById(id);var text=doc.getBody().getText().trim();return ContentService.createTextOutput(text).setMimeType(ContentService.MimeType.TEXT);}"
-                  style="background:var(--bg);padding:8px 10px;border-radius:6px;border:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--a2);cursor:pointer;line-height:1.7;word-break:break-all;transition:border-color .2s;">
-                  function doGet(){var id='<b style="color:var(--a);">YOUR_DOC_ID</b>';var doc=DocumentApp.openById(id);var text=doc.getBody().getText().trim();return ContentService.createTextOutput(text).setMimeType(ContentService.MimeType.TEXT);}
-                  <span style="color:var(--dim);display:block;margin-top:4px;">↑ click to copy</span>
-                </div>
-                <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);line-height:1.9;margin:8px 0;">
-                  3. Replace <b style="color:var(--a);">YOUR_DOC_ID</b> with your doc's ID<br>
-                  4. <b style="color:var(--a);">Deploy → New deployment → Web app</b><br>
-                  &nbsp;&nbsp;&nbsp;Execute as: <b style="color:var(--a2);">Me</b> &nbsp;|&nbsp; Who has access: <b style="color:var(--a2);">Anyone</b><br>
-                  5. Copy the deployment URL and paste below:
-                </div>
-                <input class="s-inp" id="s-script-url" type="text" placeholder="https://script.google.com/macros/s/.../exec">
-              </div>
-
-              <!-- OPTION B: Direct Doc ID -->
-              <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;">
-                <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">Option B — Google Doc ID <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);font-weight:400;margin-left:6px;">via CORS proxy</span></div>
-                <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);line-height:1.7;margin-bottom:6px;">
-                  Paste your full doc URL or just the ID. The doc must be <b style="color:var(--a);">File → Share → Publish to web → Published</b>.
-                </div>
-                <input class="s-inp" id="s-doc-id" type="text" placeholder="https://docs.google.com/document/d/YOUR_ID/edit">
-              </div>
-
-              <div class="s-row">
-                <div><div class="s-row-lbl">Auto-check interval</div><div class="s-row-sub">How often to poll for updates</div></div>
-                <select class="s-sel" id="s-poll-interval">
-                  <option value="30000">Every 30s</option>
-                  <option value="60000" selected>Every 1min</option>
-                  <option value="120000">Every 2min</option>
-                  <option value="300000">Every 5min</option>
-                </select>
-              </div>
-              <div class="s-row">
-                <div><div class="s-row-lbl">Banner duration</div><div class="s-row-sub">How long banner stays visible</div></div>
-                <select class="s-sel" id="s-banner-dur">
-                  <option value="15000">15 seconds</option>
-                  <option value="30000" selected>30 seconds</option>
-                  <option value="60000">60 seconds</option>
-                  <option value="0">Until dismissed</option>
-                </select>
-              </div>
-              <div class="s-row">
-                <div><div class="s-row-lbl">Show on login</div><div class="s-row-sub">Auto-show banner when site loads</div></div>
-                <label class="tog"><input type="checkbox" id="tog-ann-auto" checked><div class="tog-track"></div><div class="tog-thumb"></div></label>
-              </div>
-              <div id="ann-preview-text" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);min-height:14px;letter-spacing:.5px;word-break:break-word;line-height:1.6;padding:6px 0;"></div>
-              <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                <button class="s-btn primary" onclick="saveAnnouncementSettings()">Save & Connect</button>
-                <button class="s-btn" onclick="fetchAndShowBanner()">Test Banner Now</button>
-                <button class="s-btn" onclick="closeBanner()">Hide Banner</button>
-              </div>
-            </div>
-          </div>
-
           <!-- DISGUISE -->
           <div class="s-card">
             <div class="s-card-hdr"><h3>Tab Disguise</h3><p>Change how this tab appears</p></div>
@@ -803,11 +768,6 @@ font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;text-tra
 </div><!-- /app -->
 
 <div id="toast"></div>
-
-<!-- ANNOUNCEMENT BANNER -->
-<div id="ann-banner">
-  <div id="ann-inner">
-    <div id="ann-dot"></div>
     <div id="ann-label">Announcement</div>
     <div id="ann-text"><span id="ann-msg">Loading...</span></div>
   </div>
@@ -817,7 +777,7 @@ font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;text-tra
 </div>
 
 <script>
-// ── PASSWORD ──
+// ── SITE GATE ──
 const PW = '1234';
 function checkPW(){
   const v=document.getElementById('pwinp').value;
@@ -826,6 +786,224 @@ function checkPW(){
   else{document.getElementById('pwerr').textContent='Incorrect code';i.classList.add('bad');i.value='';setTimeout(()=>i.classList.remove('bad'),400);}
 }
 document.getElementById('pwinp').addEventListener('keydown',e=>{if(e.key==='Enter')checkPW();});
+
+// ── ACCOUNT LOGIN ──
+const ACCOUNTS = {moon:{pass:'2484',role:'admin',display:'moon'}};
+let currentUser = null;
+
+function openLoginModal(){
+  document.getElementById('login-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('lm-user').focus(),80);
+  document.getElementById('lm-err').textContent='';
+}
+function closeLoginModal(){
+  document.getElementById('login-modal').classList.remove('open');
+  document.getElementById('lm-user').value='';
+  document.getElementById('lm-pass').value='';
+}
+document.getElementById('login-modal').addEventListener('click',function(e){if(e.target===this)closeLoginModal();});
+
+function doAccountLogin(){
+  const u=document.getElementById('lm-user').value.trim().toLowerCase();
+  const p=document.getElementById('lm-pass').value;
+  const acc=ACCOUNTS[u];
+  const errEl=document.getElementById('lm-err');
+  const passEl=document.getElementById('lm-pass');
+  if(!acc||acc.pass!==p){
+    errEl.textContent='Incorrect username or password';
+    passEl.classList.add('bad');
+    passEl.value='';
+    setTimeout(()=>passEl.classList.remove('bad'),400);
+    return;
+  }
+  currentUser={username:u,role:acc.role,display:acc.display};
+  closeLoginModal();
+  updateUserUI();
+  enableChat();
+  chatSendSystem(acc.display+' joined');
+  showToast('Signed in as '+acc.display);
+}
+
+function doLogout(){
+  if(currentUser)chatSendSystem(currentUser.display+' left');
+  currentUser=null;
+  updateUserUI();
+  disableChat();
+  showToast('Signed out');
+}
+
+function updateUserUI(){
+  const loggedIn=!!currentUser;
+  // Non-home topbar
+  const ub=document.getElementById('user-badge');
+  const lb=document.getElementById('login-btn');
+  if(ub){ub.classList.toggle('show',loggedIn);if(loggedIn){document.getElementById('ub-name').textContent=currentUser.display;document.getElementById('ub-role').textContent=currentUser.role==='admin'?'[admin]':'';}}
+  if(lb)lb.style.display=loggedIn?'none':'';
+  // Home topbar
+  const ubh=document.getElementById('home-user-badge');
+  const lbh=document.getElementById('login-btn-home');
+  if(ubh){ubh.classList.toggle('show',loggedIn);if(loggedIn){document.getElementById('ub-name-home').textContent=currentUser.display;document.getElementById('ub-role-home').textContent=currentUser.role==='admin'?'[admin]':'';}}
+  if(lbh)lbh.style.display=loggedIn?'none':'';
+  // Admin broadcast bar
+  const ab=document.getElementById('admin-bar');
+  if(ab)ab.classList.toggle('show',loggedIn&&currentUser.role==='admin');
+}
+
+// ── GLOBAL CHAT (Self-hosted WebSocket — domain-only) ──
+// Connects to server.js running on the same domain/host.
+// ws://  for http hosting,  wss://  for https hosting — auto-detected below.
+function getChatWsUrl(){
+  const proto=location.protocol==='https:'?'wss':'ws';
+  const host=location.hostname;
+  const port=3001; // must match server.js WS_PORT
+  // If served from localhost or a raw IP, use explicit port
+  // If served from a proper domain (school host, Replit, etc.) the server handles it
+  return `${proto}://${host}:${port}`;
+}
+
+let psSocket=null, psConnected=false, chatOpen=false, unreadCount=0;
+let reconnectDelay=1500;
+
+function connectPS(){
+  if(psSocket&&psSocket.readyState<=1)return;
+  const url=getChatWsUrl();
+  try{
+    psSocket=new WebSocket(url);
+    psSocket.onopen=()=>{
+      psConnected=true;
+      reconnectDelay=1500;
+      updateChatOnline('● live');
+    };
+    psSocket.onmessage=e=>{
+      try{
+        const msg=JSON.parse(e.data);
+        if(msg&&msg.t)handleChatMsg(msg);
+      }catch(err){}
+    };
+    psSocket.onclose=()=>{
+      psConnected=false;
+      updateChatOnline('○ reconnecting...');
+      reconnectDelay=Math.min(reconnectDelay*1.5,15000);
+      setTimeout(connectPS,reconnectDelay);
+    };
+    psSocket.onerror=()=>{
+      psConnected=false;
+      updateChatOnline('○ server offline');
+    };
+  }catch(e){updateChatOnline('○ error');}
+}
+
+function psend(obj){
+  if(!psSocket||psSocket.readyState!==1)return false;
+  psSocket.send(JSON.stringify(obj));
+  return true;
+}
+
+function handleChatMsg(msg){
+  // Server sends history array on connect — replay all at once
+  if(msg.t==='history'){
+    if(Array.isArray(msg.messages)){
+      msg.messages.forEach(m=>renderChatMsg(m));
+      scrollChatBottom();
+    }
+    return;
+  }
+  renderChatMsg(msg);
+  if(chatOpen){scrollChatBottom();}
+  else if(msg.t!=='sys'){
+    unreadCount++;
+    const u=document.getElementById('chat-unread');
+    u.textContent=unreadCount>9?'9+':unreadCount;
+    u.classList.add('show');
+  }
+}
+
+function renderChatMsg(msg){
+  const box=document.getElementById('chat-msgs');
+  if(!box)return;
+  const div=document.createElement('div');
+  if(msg.t==='sys'){
+    div.className='chat-msg-sys';
+    div.textContent=msg.text;
+  } else if(msg.t==='chat'||msg.t==='ann'){
+    div.className='chat-msg'+(msg.t==='ann'?' announce':'');
+    const now=new Date(msg.ts||Date.now());
+    const hh=now.getHours()%12||12, mm=String(now.getMinutes()).padStart(2,'0');
+    const isAdmin=msg.role==='admin'||msg.t==='ann';
+    div.innerHTML=`<div class="chat-msg-head"><span class="chat-msg-user${isAdmin?' admin':''}">${msg.t==='ann'?'📣 ':''}${escH(msg.user||'?')}</span><span class="chat-msg-time">${hh}:${mm}</span></div><div class="chat-msg-text">${escH(msg.text)}</div>`;
+    if(msg.t==='ann')showAnnounceBanner(msg.text,msg.user);
+  }
+  box.appendChild(div);
+}
+
+function escH(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function updateChatOnline(t){const el=document.getElementById('chat-online');if(el)el.textContent=t;}
+function scrollChatBottom(){const c=document.getElementById('chat-msgs');if(c)requestAnimationFrame(()=>c.scrollTop=c.scrollHeight);}
+
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chat-panel').classList.toggle('open',chatOpen);
+  if(chatOpen){unreadCount=0;document.getElementById('chat-unread').classList.remove('show');document.getElementById('chat-unread').textContent='';scrollChatBottom();}
+}
+
+function enableChat(){
+  document.getElementById('chat-input').disabled=false;
+  document.getElementById('chat-send').disabled=false;
+  document.getElementById('chat-input').placeholder='Message as '+currentUser.display+'...';
+  if(psConnected)psend({t:'sys',text:currentUser.display+' joined',ts:Date.now()});
+}
+function disableChat(){
+  document.getElementById('chat-input').disabled=true;
+  document.getElementById('chat-send').disabled=true;
+  document.getElementById('chat-input').placeholder='Sign in to chat...';
+}
+function chatSendSystem(text){psend({t:'sys',text,ts:Date.now()});}
+
+function sendChatMsg(){
+  if(!currentUser){openLoginModal();return;}
+  const inp=document.getElementById('chat-input');
+  const text=inp.value.trim();if(!text)return;inp.value='';
+  if(!psend({t:'chat',user:currentUser.display,role:currentUser.role,text,ts:Date.now()}))showToast('Not connected — try again');
+}
+
+function sendAnnouncement(){
+  if(!currentUser||currentUser.role!=='admin')return;
+  const inp=document.getElementById('announce-input');
+  const text=inp.value.trim();if(!text)return;inp.value='';
+  if(psend({t:'ann',user:currentUser.display,role:'admin',text,ts:Date.now()}))showToast('📣 Broadcast sent!');
+  else showToast('Not connected');
+}
+
+// Announcement overlay banner (30s auto-dismiss)
+let annBTimer=null;
+function showAnnounceBanner(text,user){
+  let b=document.getElementById('ann-ov');
+  if(!b){
+    b=document.createElement('div');b.id='ann-ov';
+    b.style.cssText="position:fixed;top:0;left:0;right:0;z-index:9400;background:linear-gradient(135deg,rgba(20,14,0,.97),rgba(35,25,0,.97));border-bottom:2px solid #f59e0b;padding:10px 48px 8px 18px;font-family:'JetBrains Mono',monospace;display:none;backdrop-filter:blur(12px);";
+    b.innerHTML='<span style="color:#f59e0b;font-size:9px;letter-spacing:2px;margin-right:10px;">📣 ANNOUNCEMENT</span><span id="ann-ov-txt" style="font-size:12px;color:#fde68a;font-family:Inter,sans-serif;"></span><button onclick="closeAnnBanner()" style="position:absolute;top:8px;right:12px;background:none;border:none;color:#888;cursor:pointer;font-size:15px;line-height:1;">✕</button><div style="height:2px;background:rgba(245,158,11,.2);margin-top:7px;border-radius:1px;overflow:hidden;"><div id="ann-ov-bar" style="height:100%;background:#f59e0b;width:100%;transition:none;"></div></div>';
+    document.body.appendChild(b);
+  }
+  document.getElementById('ann-ov-txt').textContent=text;
+  b.style.display='block';
+  const bar=document.getElementById('ann-ov-bar');
+  bar.style.transition='none';bar.style.width='100%';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{bar.style.transition='width 30s linear';bar.style.width='0%';}));
+  const appEl=document.getElementById('app');
+  appEl.style.marginTop=(b.offsetHeight||44)+'px';
+  if(annBTimer)clearTimeout(annBTimer);
+  annBTimer=setTimeout(closeAnnBanner,30000);
+}
+function closeAnnBanner(){
+  const b=document.getElementById('ann-ov');if(b)b.style.display='none';
+  document.getElementById('app').style.marginTop='';
+  if(annBTimer){clearTimeout(annBTimer);annBTimer=null;}
+}
+
+function initChat(){
+  document.getElementById('chat-btn').classList.add('show');
+  connectPS();
+}
 
 // ── GAME DATA ──
 const TL={html5:'HTML5',flash:'Flash',emulated:'Emulated',fnf:'FNF',cdn:'CDN',gnmath:'GN Math'};
@@ -1011,7 +1189,8 @@ function initApp(){
   if(savedFav)applyFavicon(savedFav);
   const savedTitle=localStorage.getItem('moon-title');
   if(savedTitle){document.title=savedTitle;document.getElementById('s-tab-title').value=savedTitle;}
-  initAnnouncement();
+  updateUserUI();
+  initChat();
 }
 
 // ── CLOCK ──
@@ -1284,319 +1463,6 @@ function showToast(msg){
   setTimeout(()=>t.classList.remove('show'),2400);
 }
 
-// ── ANNOUNCEMENT BANNER ──
-let annTimer=null, annPollTimer=null, annTimerBar=null, annDismissed=false;
-
-// Extract the doc ID from either a full Google Docs URL or a raw ID string
-function parseDocId(input){
-  if(!input)return '';
-  input=input.trim();
-  // Match full URL: docs.google.com/document/d/ID/...
-  const m=input.match(/\/document\/d\/([a-zA-Z0-9_-]{20,})/);
-  if(m)return m[1];
-  // Already an ID (long alphanumeric string, no slashes)
-  if(/^[a-zA-Z0-9_-]{20,}$/.test(input))return input;
-  return input; // pass through as-is and let fetch fail naturally
-}
-
-function getDocId(){
-  const raw=document.getElementById('s-doc-id')?.value||localStorage.getItem('moon-doc-id')||'';
-  return parseDocId(raw);
-}
-function getBannerDur(){return parseInt(document.getElementById('s-banner-dur')?.value||localStorage.getItem('moon-banner-dur')||'30000');}
-function getPollInterval(){return parseInt(document.getElementById('s-poll-interval')?.value||localStorage.getItem('moon-poll-interval')||'60000');}
-
-function extractDocText(html){
-  // The /pub page wraps content in <div id="contents"> with <p> tags
-  // We need to strip Google's script-heavy preamble and grab only readable text
-  const tmp=document.createElement('div');
-  tmp.innerHTML=html;
-  // Remove all scripts, styles, head, nav, header, footer
-  tmp.querySelectorAll('script,style,noscript,head,nav,header,footer,form,button').forEach(e=>e.remove());
-
-  // Best case: Google pub pages have a #contents or .doc-content div
-  const content=tmp.querySelector('#contents,.doc-content,[role="main"],article')||
-                 tmp.querySelector('body')||tmp;
-
-  // Collect only visible text paragraphs, skip anything that looks like code/config
-  const lines=[];
-  content.querySelectorAll('p,h1,h2,h3,h4,h5,li,span').forEach(el=>{
-    // Skip if inside a script-like block
-    if(el.closest('script,style,noscript'))return;
-    const t=el.textContent.replace(/\s+/g,' ').trim();
-    // Skip short fragments, Google config strings, and anything that looks like JS
-    if(!t||t.length<2)return;
-    if(t.includes('window[')&&t.includes('Config'))return;
-    if(t.includes('function(')&&t.includes('{'))return;
-    if(t.startsWith('{')&&t.includes(':'))return;
-    if(/^[a-zA-Z0-9+/=]{40,}$/.test(t))return; // base64-like
-    if(t.split(' ').length<2&&t.length>30)return; // long single word = likely garbage
-    // Deduplicate consecutive identical lines
-    if(lines.length&&lines[lines.length-1]===t)return;
-    lines.push(t);
-  });
-
-  // Remove duplicate fragments (gdoc pub repeats text in different elements)
-  const seen=new Set();
-  const unique=lines.filter(l=>{
-    const k=l.toLowerCase().slice(0,40);
-    if(seen.has(k))return false;
-    seen.add(k);return true;
-  });
-
-  const result=unique.join(' · ').trim();
-  // Final sanity: if result still looks like JS garbage, return empty
-  if(result.includes('window[')&&result.includes(']')&&result.length>200)return '';
-  return result.slice(0,600);
-}
-
-async function fetchDocContent(docId){
-  if(!docId)return null;
-
-  // Strategy: /pub gives proper published HTML — best for text extraction
-  // export?format=txt would be ideal but Google redirects it to an auth page through proxies
-  const pubUrl=`https://docs.google.com/document/d/${docId}/pub`;
-
-  const prev=document.getElementById('ann-preview-text');
-
-  const proxies=[
-    // corsproxy.io — passes raw response, very reliable
-    {
-      name:'corsproxy.io',
-      fetch:async(u)=>{
-        const r=await fetch(`https://corsproxy.io/?${encodeURIComponent(u)}`,{cache:'no-store'});
-        if(!r.ok)throw r.status;
-        return r.text();
-      }
-    },
-    // allorigins — JSON wrapper
-    {
-      name:'allorigins.win',
-      fetch:async(u)=>{
-        const r=await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(u)}`,{cache:'no-store'});
-        if(!r.ok)throw r.status;
-        const j=await r.json();
-        return j.contents||'';
-      }
-    },
-    // htmldriven thingproxy
-    {
-      name:'thingproxy',
-      fetch:async(u)=>{
-        const r=await fetch(`https://thingproxy.freeboard.io/fetch/${u}`,{cache:'no-store'});
-        if(!r.ok)throw r.status;
-        return r.text();
-      }
-    },
-    // cors.sh (needs origin header)
-    {
-      name:'corsproxy.io (alt)',
-      fetch:async(u)=>{
-        const r=await fetch(`https://corsproxy.io/?url=${encodeURIComponent(u)}`,{cache:'no-store'});
-        if(!r.ok)throw r.status;
-        return r.text();
-      }
-    },
-  ];
-
-  for(const proxy of proxies){
-    try{
-      if(prev)prev.textContent=`Trying ${proxy.name}...`;
-      const html=await proxy.fetch(pubUrl);
-      if(!html||html.length<100)continue;
-
-      // If proxy returned an error page or redirect
-      if(html.includes('accounts.google.com'))continue; // auth wall
-      if(html.includes('Sign in')&&html.length<2000)continue; // sign-in page
-
-      const text=extractDocText(html);
-      if(text&&text.length>3&&!text.startsWith('window'))return text;
-    }catch(e){
-      // try next proxy
-    }
-  }
-  return null;
-}
-
-let lastAnnText='';
-
-function showBanner(text){
-  const banner=document.getElementById('ann-banner');
-  const msg=document.getElementById('ann-msg');
-  const bar=document.getElementById('ann-timer-bar');
-  const status=document.getElementById('ann-status');
-  if(!banner||!msg)return;
-  // Clear any running timer
-  if(annTimer)clearTimeout(annTimer);
-  if(annTimerBar)clearInterval(annTimerBar);
-  // Set message — sanitize but keep basic formatting
-  msg.textContent=text;
-  banner.classList.remove('hiding');
-  banner.classList.add('show');
-  // Update status line
-  const now=new Date();
-  status.textContent='Last updated: '+now.toLocaleTimeString();
-  // Push app down to make room for banner
-  const appEl=document.getElementById('app');
-  const pwEl=document.getElementById('pwscreen');
-  const bannerH=banner.offsetHeight||60;
-  appEl.style.marginTop=bannerH+'px';
-  pwEl.style.paddingTop=bannerH+'px';
-  const dur=getBannerDur();
-  if(dur>0){
-    // Animate the timer bar
-    bar.style.transition='none';
-    bar.style.width='100%';
-    // Start countdown animation
-    requestAnimationFrame(()=>{
-      requestAnimationFrame(()=>{
-        bar.style.transition=`width ${dur}ms linear`;
-        bar.style.width='0%';
-      });
-    });
-    annTimer=setTimeout(()=>closeBanner(),dur);
-  } else {
-    bar.style.width='0%';
-    bar.style.transition='none';
-  }
-}
-
-function closeBanner(){
-  const banner=document.getElementById('ann-banner');
-  if(!banner||!banner.classList.contains('show'))return;
-  if(annTimer){clearTimeout(annTimer);annTimer=null;}
-  if(annTimerBar){clearInterval(annTimerBar);annTimerBar=null;}
-  banner.classList.add('hiding');
-  setTimeout(()=>{
-    banner.classList.remove('show','hiding');
-    document.getElementById('app').style.marginTop='';
-    document.getElementById('pwscreen').style.paddingTop='';
-  },380);
-  annDismissed=true;
-}
-
-function getScriptUrl(){return(document.getElementById('s-script-url')?.value||localStorage.getItem('moon-script-url')||'').trim();}
-
-async function fetchAndShowBanner(){
-  const prev=document.getElementById('ann-preview-text');
-  const scriptUrl=getScriptUrl();
-  const raw=document.getElementById('s-doc-id')?.value||localStorage.getItem('moon-doc-id')||'';
-  const docId=parseDocId(raw.trim());
-
-  if(!scriptUrl&&!raw.trim()){
-    showToast('Add an Apps Script URL or Doc ID in Settings first');
-    goPage('settings');
-    return;
-  }
-
-  if(prev)prev.textContent='Connecting...';
-  let text=null;
-
-  // Apps Script URL is the preferred path — direct fetch, no proxy needed
-  if(scriptUrl){
-    try{
-      if(prev)prev.textContent='Fetching from Apps Script...';
-      const r=await fetch(scriptUrl,{cache:'no-store',redirect:'follow'});
-      if(r.ok){
-        const t=(await r.text()).trim();
-        if(t&&t.length>0&&!t.startsWith('<'))text=t.slice(0,600);
-      }
-    }catch(e){}
-  }
-
-  // Fall back to proxy-based doc fetch if no script URL or it failed
-  if(!text&&docId){
-    if(prev)prev.textContent='Trying CORS proxies for doc...';
-    text=await fetchDocContent(docId);
-  }
-
-  if(!text){
-    if(prev)prev.innerHTML='⚠ Could not load. Check:<br>• Apps Script: deployed as "Anyone" web app?<br>• Doc: File → Share → Publish to web → Published?<br>• Is the ID/URL correct?';
-    showToast('Could not load announcement');
-    return;
-  }
-
-  if(prev)prev.textContent='✓ Connected: "'+text.slice(0,80)+(text.length>80?'...':'')+'"';
-  if(text!==lastAnnText||!annDismissed){
-    lastAnnText=text;
-    annDismissed=false;
-    showBanner(text);
-  }
-}
-
-function saveAnnouncementSettings(){
-  const scriptUrl=document.getElementById('s-script-url')?.value.trim()||'';
-  const raw=document.getElementById('s-doc-id')?.value.trim()||'';
-  const docId=parseDocId(raw);
-  const dur=document.getElementById('s-banner-dur').value;
-  const poll=document.getElementById('s-poll-interval').value;
-  const prev=document.getElementById('ann-preview-text');
-
-  if(!scriptUrl&&!raw){showToast('Enter an Apps Script URL or Doc ID');return;}
-  if(!scriptUrl&&raw&&!docId){
-    if(prev)prev.textContent='⚠ Could not find a Doc ID in that URL.';
-    return;
-  }
-  if(scriptUrl)localStorage.setItem('moon-script-url',scriptUrl);
-  if(raw)localStorage.setItem('moon-doc-id',raw);
-  localStorage.setItem('moon-banner-dur',dur);
-  localStorage.setItem('moon-poll-interval',poll);
-  localStorage.setItem('moon-ann-auto',document.getElementById('tog-ann-auto').checked?'1':'0');
-  if(prev)prev.textContent='Saved — testing connection...';
-  showToast('Saved — connecting...');
-  startAnnPoll();
-  fetchAndShowBanner();
-}
-
-function startAnnPoll(){
-  if(annPollTimer)clearInterval(annPollTimer);
-  const interval=getPollInterval();
-  annPollTimer=setInterval(async()=>{
-    const scriptUrl=localStorage.getItem('moon-script-url')||'';
-    const raw=localStorage.getItem('moon-doc-id')||'';
-    const docId=parseDocId(raw);
-    if(!scriptUrl&&!docId)return;
-    let text=null;
-    if(scriptUrl){
-      try{
-        const r=await fetch(scriptUrl,{cache:'no-store',redirect:'follow'});
-        if(r.ok){const t=(await r.text()).trim();if(t&&!t.startsWith('<'))text=t.slice(0,600);}
-      }catch(e){}
-    }
-    if(!text&&docId)text=await fetchDocContent(docId);
-    if(text&&text!==lastAnnText){
-      lastAnnText=text;
-      annDismissed=false;
-      showBanner(text);
-      const prev=document.getElementById('ann-preview-text');
-      if(prev)prev.textContent='✓ Updated: "'+text.slice(0,80)+(text.length>80?'...':'')+'"';
-    }
-  },interval);
-}
-
-function initAnnouncement(){
-  const savedScript=localStorage.getItem('moon-script-url')||'';
-  const savedRaw=localStorage.getItem('moon-doc-id')||'';
-  const savedDur=localStorage.getItem('moon-banner-dur')||'30000';
-  const savedPoll=localStorage.getItem('moon-poll-interval')||'60000';
-  const savedAuto=localStorage.getItem('moon-ann-auto');
-  const elScript=document.getElementById('s-script-url');
-  const elId=document.getElementById('s-doc-id');
-  const elDur=document.getElementById('s-banner-dur');
-  const elPoll=document.getElementById('s-poll-interval');
-  const elAuto=document.getElementById('tog-ann-auto');
-  if(elScript&&savedScript)elScript.value=savedScript;
-  if(elId&&savedRaw)elId.value=savedRaw;
-  if(elDur&&savedDur)elDur.value=savedDur;
-  if(elPoll&&savedPoll)elPoll.value=savedPoll;
-  if(elAuto&&savedAuto!==null)elAuto.checked=savedAuto!=='0';
-  if(savedScript||parseDocId(savedRaw)){
-    startAnnPoll();
-    const autoOn=savedAuto!=='0';
-    if(autoOn)setTimeout(()=>fetchAndShowBanner(),1200);
-  }
-}
-
 // ── STAR CANVAS ──
 (function(){
   const canvas=document.getElementById('star-canvas');
@@ -1727,5 +1593,27 @@ function initAnnouncement(){
   window.addEventListener('resize',()=>{resize();});
 })();
 </script>
+<!-- CHAT BUTTON + PANEL -->
+<button id="chat-btn" onclick="toggleChat()" title="Global Chat">💬<div id="chat-unread"></div></button>
+
+<div id="chat-panel">
+  <div id="chat-head">
+    <span style="font-size:14px;">💬</span>
+    <span id="chat-head-title">Moon Chat</span>
+    <span id="chat-online">○ connecting...</span>
+    <button class="chat-close-btn" onclick="toggleChat()">✕</button>
+  </div>
+  <div id="chat-msgs"></div>
+  <div id="admin-bar">
+    <input id="announce-input" type="text" placeholder="📣 Broadcast to all users..." maxlength="200" onkeydown="if(event.key==='Enter')sendAnnouncement()">
+    <button id="announce-send" onclick="sendAnnouncement()">📣 Broadcast to Everyone</button>
+  </div>
+  <div id="chat-input-row">
+    <input id="chat-input" type="text" placeholder="Sign in to chat..." maxlength="200" onkeydown="if(event.key==='Enter')sendChatMsg()" disabled>
+    <button id="chat-send" onclick="sendChatMsg()" disabled>Send</button>
+  </div>
+</div>
+
+
 </body>
 </html>
