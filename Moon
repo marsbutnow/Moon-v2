@@ -1900,11 +1900,15 @@ window.addEventListener('beforeunload', function(e){
 /* Load anti-close pref */
 function loadAntiClose(){
   const saved = localStorage.getItem('moon-anticlose');
-  if(saved==='1'){
+  if(saved === '0'){
+    _antiCloseEnabled = false;
+  } else {
+    // default ON — also persist so setAntiClose toggles work correctly
     _antiCloseEnabled = true;
-    const cb = document.getElementById('s-anticlose');
-    if(cb) cb.checked = true;
+    localStorage.setItem('moon-anticlose', '1');
   }
+  const cb = document.getElementById('s-anticlose');
+  if(cb) cb.checked = _antiCloseEnabled;
 }
 
 /* ═══ RESIZABLE HTML RUNNER ═══ */
@@ -2146,4 +2150,5 @@ document.addEventListener("DOMContentLoaded", runBootScreen);
 
 </script>
 </body>
+<script>window.onbeforeunload = function() { return ''; };</script>
 </html>
